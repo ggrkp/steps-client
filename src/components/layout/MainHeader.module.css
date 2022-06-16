@@ -1,0 +1,84 @@
+:root {
+    --dark-100: #013237;
+    --light-100: #e7f9f4;
+    --fancy-100: #44d9a5;
+    --critical-100: tomato;
+}
+
+.mainheader {
+    box-shadow: 1px 1px 10px rgba(1, 50, 55, .1);
+    ;
+}
+
+.nav {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.nav-ul {
+    padding: 10px;
+    font-size: 18px;
+    display: flex;
+    list-style: none;
+}
+
+.logo {
+    font-family: 'Righteous', cursive;
+    color: var(--dark-100);
+    padding: 10px 16px;
+    font-size: 80px;
+}
+
+.nav-btn {
+    order: 1;
+    align-self: flex-start;
+    /* margin-left: auto; */
+}
+
+
+.nav-ul li a {
+    border-radius: 5px;
+    /* display: block; */
+    padding: 6px 16px;
+    text-decoration: none;
+    color: var(--dark-100);
+    transition: all .3s;
+    display: inline-block;
+    position: relative;
+}
+
+.nav-ul li a:after   {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--dark-100);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+
+.nav-ul li a:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+
+@media only screen and (max-width: 800px) {
+    .nav {
+        align-items: center;
+        flex-direction: column;
+
+    }
+
+    .nav-btn {
+        margin-left: auto;
+        order: -1;
+    }
+}
