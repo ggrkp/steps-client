@@ -32,8 +32,8 @@ const LoginForm = () => (
             {({ isSubmitting }) => (
 
                 <CardForm data={{
-                    formTitle: "Sign In",
-                    formSubtitle: "Use your e-mail and password to sign in.",
+                    formTitle: "Login",
+                    formSubtitle: 'Please enter your e-mail and password.',
                     plainText: " Create new account",
                     btnClass: "btn-secondary",
                     redirectPath: "/signup"
@@ -51,7 +51,7 @@ const LoginForm = () => (
                         <ErrorMessage className='error-msg' name="password" component="div" />
 
                         <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
-                            Sign In
+                           Sign in
                         </button>
                         {/* <br></br> */}
 

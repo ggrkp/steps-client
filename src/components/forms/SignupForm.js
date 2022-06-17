@@ -36,7 +36,7 @@ const SignupForm = () => {
 
                     <CardForm data={{
                         formTitle: "Let's Get Started!",
-                        formSubtitle: "Create an account and join the project!",
+                        formSubtitle: "Sign up and join us!",
                         plainText: "Already have an account? Sign in",
                         btnClass: "btn-plain",
                         redirectPath: "/login"
