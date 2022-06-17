@@ -32,9 +32,10 @@ const LoginForm = () => (
             {({ isSubmitting }) => (
 
                 <CardForm data={{
-                    formTitle: "Sign In!",
-                    formSubtitle: "Use your email and password to sign in.",
-                    plainText: "Don't have an account yet? Sign up",
+                    formTitle: "Sign In",
+                    formSubtitle: "Use your e-mail and password to sign in.",
+                    plainText: " Create new account",
+                    btnClass: "btn-secondary",
                     redirectPath: "/signup"
                 }} >
 
@@ -52,8 +53,14 @@ const LoginForm = () => (
                         <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
                             Sign In
                         </button>
+                        {/* <br></br> */}
+
+                        
                         
                     </Form>
+                        <button className="btn btn-plain">
+                            Forgot your password?
+                        </button>
                 </CardForm>
             )}
         </Formik>

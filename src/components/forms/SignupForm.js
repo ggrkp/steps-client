@@ -38,25 +38,26 @@ const SignupForm = () => {
                         formTitle: "Let's Get Started!",
                         formSubtitle: "Create an account and join the project!",
                         plainText: "Already have an account? Sign in",
+                        btnClass: "btn-plain",
                         redirectPath: "/login"
                     }} >
 
                         <Form className={styles.form}>
 
                             <span className={styles['form-span']} >Username</span>
-                            <Field className={styles.field} type="text" name="name" />
+                            <Field className={styles.field} type="text" name="name"  />
 
                             <span className={styles['form-span']} >E-mail</span>
                             <Field className={styles.field} type="email" name="email" />
 
                             <span className={styles['form-span']}>Password</span>
-                            <Field className={styles.field} type="password" name="password" />
+                            <Field className={styles.field} type="password" name="password"   />
 
                             <ErrorMessage className='error-msg' name="email" component="div" />
                             <ErrorMessage className='error-msg' name="password" component="div" />
 
                             <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
-                                Create Your Account!
+                                Create Account
                             </button>
                         </Form>
                     </CardForm>
