@@ -70,7 +70,7 @@ code {
 
 
 .btn {
-
+  min-width: 150px;
   cursor: pointer;
   font-size: 16px;
   border: none;
