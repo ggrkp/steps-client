@@ -1,13 +1,15 @@
 :root {
     --dark-100: #013237;
-    --light-100: #e7f9f4;
+    --light-100: aliceblue;
     --fancy-100: #44d9a5;
     --critical-100: tomato;
 }
 
 .mainheader {
-    box-shadow: 1px 1px 10px rgba(1, 50, 55, .1);
-    ;
+    /* box-shadow: 1px 1px 10px rgba(1, 50, 55, .1); */
+    /* box-shadow: rgba(1, 50, 55, .3) 0px 25px 20px -20px; */
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    
 }
 
 .nav {

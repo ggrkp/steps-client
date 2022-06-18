@@ -1,15 +1,16 @@
 import styles from './Form.module.css'
-
+import { useNavigate } from 'react-router-dom';
 import CardForm from './CardForm'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const SignupForm = () => {
+    const navigate = useNavigate();
 
     return (
 
         <>
             <Formik
-                initialValues={{ name: '', email: '', password: '' }}
+                initialValues={{ name: '', email: '', password: '', is_admin: false }}
 
                 validate={values => {
                     const errors = {};
@@ -25,10 +26,20 @@ const SignupForm = () => {
 
                 onSubmit={(values, { setSubmitting }) => {
                     // ! API CALL TO SEND TO DATABASE.
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
+
+                    fetch('http://localhost:3000/create', {
+                        method: 'POST',
+                        body: JSON.stringify(values),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(
+
+                            navigate('/login')
+
+                        )
+
 
                 }}
             >
@@ -45,13 +56,13 @@ const SignupForm = () => {
                         <Form className={styles.form}>
 
                             <span className={styles['form-span']} >Username</span>
-                            <Field className={styles.field} type="text" name="name"  />
+                            <Field className={styles.field} type="text" name="name" />
 
                             <span className={styles['form-span']} >E-mail</span>
                             <Field className={styles.field} type="email" name="email" />
 
                             <span className={styles['form-span']}>Password</span>
-                            <Field className={styles.field} type="password" name="password"   />
+                            <Field className={styles.field} type="password" name="password" />
 
                             <ErrorMessage className='error-msg' name="email" component="div" />
                             <ErrorMessage className='error-msg' name="password" component="div" />
