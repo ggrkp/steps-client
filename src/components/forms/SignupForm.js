@@ -1,3 +1,6 @@
+// todo: validate fields
+// todo: handle error on submit.
+
 import styles from './Form.module.css'
 import { useNavigate } from 'react-router-dom';
 import CardForm from './CardForm'
@@ -34,11 +37,13 @@ const SignupForm = () => {
                             'Content-Type': 'application/json'
                         }
                     })
-                        .then(
-
-                            navigate('/login')
-
+                        .then((response) => {
+                            if (response.ok) navigate('/login');
+                        }
                         )
+                        .catch((error) => {
+                            console.error(error);
+                        })
 
 
                 }}

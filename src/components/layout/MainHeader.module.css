@@ -31,7 +31,8 @@
     font-family: 'Righteous', cursive;
     color: var(--dark-100);
     padding: 10px 16px;
-    font-size: 65px;
+    /* font-size: 65px; */
+    font-size: max(50px, 4vw);
 }
 
 .nav-btn {
@@ -82,10 +83,6 @@
     .nav-btn {
         margin-left: auto;
         order: -1;
-    }
-
-    .logo{
-        font-size: 50px;
     }
 
     
