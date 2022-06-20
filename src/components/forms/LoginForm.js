@@ -1,14 +1,14 @@
 // todo: Forgot password
 // todo: Login backend / Tokens etc.
 
-
+import { useNavigate } from 'react-router-dom';
 import styles from './Form.module.css'
 import { useState } from 'react'
 import CardForm from './CardForm'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const LoginForm = () => {
-
+    const navigate = useNavigate()
     const [logData, setLogData] = useState({
         token: '', userId: ''
     })
@@ -50,10 +50,11 @@ const LoginForm = () => {
                             //! WE GOT THE TOKEN!
                             // console.log(data.token);
                             console.log(data);
-                            setLogData({
-                                token: data.token,
-                                userId: data.id
-                            })
+                            // setLogData({
+                            //     token: data.token,
+                            //     userId: data.id
+                            // })
+                            // navigate('/welcome')
                         })
                         .catch(error => { console.error(error) })
 

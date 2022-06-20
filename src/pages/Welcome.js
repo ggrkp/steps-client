@@ -1,10 +1,17 @@
 
 const Welcome = (props) => {
-    return (
-        <div>
-            welcome page
-        </div>
-    )
-}
+    const clickHandler = () => {
+        fetch('/api/hello')
+            .then(response => response.json())
+            .then(data => console.log(data.message))
 
-export default Welcome
+
+            }
+    return (
+            <div>
+                <button className="btn btn-primary" onClick={clickHandler}>click to fetch</button>
+            </div>
+        )
+    }
+
+    export default Welcome
