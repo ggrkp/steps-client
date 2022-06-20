@@ -56,7 +56,9 @@ code {
     monospace;
 }
 
-
+svg{
+  width: 100%;
+}
 
 .btn {
   min-width: 150px;

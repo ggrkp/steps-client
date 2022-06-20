@@ -34,7 +34,8 @@ const LoginForm = () => {
                 onSubmit={(values, { setSubmitting }) => {
                     // ! API CALL TO SEND TO DATABASE.
 
-                    fetch('http://localhost:3000/login', {
+                    // fetch('http://localhost:3000/login', {
+                    fetch('/api/login', {
                         method: 'POST',
                         body: JSON.stringify(values),
                         headers: {
@@ -47,6 +48,8 @@ const LoginForm = () => {
                             // ! Here we will store token information into cookies.
                             // ! also we will store it into context.
                             //! WE GOT THE TOKEN!
+                            // console.log(data.token);
+                            console.log(data);
                             setLogData({
                                 token: data.token,
                                 userId: data.id

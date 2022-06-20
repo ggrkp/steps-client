@@ -16,6 +16,7 @@
 
 /* Add some padding inside the card container */
 .container {
+    width: min-content;
     display: flex;
     flex-direction: column;
     align-items:center;
