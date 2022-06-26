@@ -7,8 +7,8 @@ import Layout from './components/layout/Layout'
 import ProfilePage from './pages/ProfilePage'
 import AuthPage from './pages/AuthPage'
 
-
 function App() {
+
   return (
     <>
       <MainHeader />

@@ -1,11 +1,13 @@
 import styles from './Form.module.css'
 import Card from '../layout/Card'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import AuthContext from '../../store/auth-context'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Snackbar from '../layout/Snackbar';
 
 const AuthForm = () => {
+    const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLogin, setIsLogin] = useState(true)
     const [showSnackbar, setShowSnackbar] = useState(false)
@@ -47,49 +49,24 @@ const AuthForm = () => {
 
 
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                // ! API CALL TO SEND TO DATABASE.
+                const apiUrl = isLogin ? '/auth/login' : '/auth/signup'
 
-                // fetch('http://localhost:3000/login', {
+                fetch(apiUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(values),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
 
-                // todo: an einai ola ta pedia valid tote mono kane to request.
-                if (isLogin) {
-                    fetch('/auth/login', {
-                        method: 'POST',
-                        body: JSON.stringify(values),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-
-                        .then(response => {
-                            alert(JSON.stringify(values, null, 2));
+                        if (isLogin) {
                             if (!response.ok) {
                                 throw new Error("Credentials are incorrect! Please try again.")
                             }
-                            return response
-                        })
-                        .then(data => {
-                            //! we get the token via cookies. 
-                            // alert(JSON.stringify(values, null, 2));
-                            console.log(data);
-                            console.log('Success, we got the token.');
-                            navigate('/profile')
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            resetForm()
-                        })
-                }
-                else {
-                    fetch('/auth/create', {
-                        method: 'POST',
-                        body: JSON.stringify(values),
-                        headers: {
-                            'Content-Type': 'application/json'
+                            return response.json()
                         }
-                    })
-
-                        .then(response => {
+                        else {
                             if (!response.ok) {
                                 throw new Error("Something went wrong. Please try again.")
                             }
@@ -99,12 +76,19 @@ const AuthForm = () => {
                             setIsLogin(true)
                             resetForm()
                             // return response
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            resetForm()
-                        })
-                }
+                        }
+                    })
+                    .then(data => {
+                        if (isLogin) {
+                            console.log(data);
+                            authCtx.login(data.token);
+                            navigate('/profile')
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        resetForm()
+                    })
 
             }}
         >
@@ -143,7 +127,7 @@ const AuthForm = () => {
                     {isLogin && <span> Don't have an account yet?</span >}
                     <div className={styles['center']}>
                         <button onClick={toggleHandler} className={`btn ${isLogin ? 'btn-secondary' : 'btn-plain'}`} >
-                            {!isLogin && <span> Already have an account ? </span >}
+                            {!isLogin && <span>Already have an account ?</span >}
                             {toggleBtnText}
                         </button>
                     </div>

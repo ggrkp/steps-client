@@ -12,14 +12,8 @@ const ProfilePage = (props) => {
                 setShowSnackbar(true)
                 setTimeout(() => setShowSnackbar(false), 3000)
                 console.log(data.message)
-
             })
     }
-
-
-
-
-
     return (
         <div>
             <Snackbar showBar={showSnackbar} snackText="Hello baby!" />
