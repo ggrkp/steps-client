@@ -6,6 +6,7 @@ import Layout from './components/layout/Layout'
 
 import ProfilePage from './pages/ProfilePage'
 import AuthPage from './pages/AuthPage'
+import UploadPage from './pages/UploadPage'
 import Page404 from './pages/Page404'
 
 import { useContext } from 'react'
@@ -19,7 +20,7 @@ function App() {
         <Routes>
 
           <Route path='/' element={<Navigate replace to='/profile' />} />
-
+          {(authCtx.isLoggedIn && !authCtx.isAdmin) && <Route path='/upload' element={<UploadPage />} />}
           <Route path='/auth'
             element={!authCtx.isLoggedIn
               ? < AuthPage />

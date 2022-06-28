@@ -6,7 +6,6 @@ import AuthContext from '../../store/auth-context'
 const MainHeader = (props) => {
     const navigate = useNavigate()
     const authCtx = useContext(AuthContext)
-    const isLoggedIn = authCtx.isLoggedIn
     const logoutHandler = () => {
         navigate('/auth')
         authCtx.logout()
@@ -17,14 +16,14 @@ const MainHeader = (props) => {
                 <nav className={`${styles.nav} ${styles['nav-small']} `}>
                     <div className={styles['nav-btn']}>
                         {/* <button className='btn btn-ghost'>Profile</button> */}
-                        {isLoggedIn && <button className='btn btn-critical' onClick={logoutHandler}>Log Out</button>}
+                        {authCtx.isLoggedIn && <button className='btn btn-ghost' onClick={logoutHandler}>Log Out</button>}
                     </div>
                     <h1 className={styles.logo}>steps </h1>
                     <ul className={`${styles['nav-ul']} ${styles['nav-small']} `}>
-                    {/* <ul className={`${styles['nav-ul']}`}> */}
-                        <li><NavLink to="#">Home</NavLink></li>
+                        {/* <ul className={`${styles['nav-ul']}`}> */}
+                        <li><NavLink to="/profile">Home</NavLink></li>
                         <li><NavLink to="#">Stats</NavLink></li>
-                        <li><NavLink to="#">Upload</NavLink></li>
+                        {(authCtx.isLoggedIn && !authCtx.isAdmin) && <li><NavLink to="/upload">Upload</NavLink></li>}
                     </ul>
                 </nav>
             </header>

@@ -3,7 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 let logoutTimer;
 
 const AuthContext = React.createContext({
-    token: '',
+    isAdmin: null,
+    token: null,
     isLoggedIn: false,
     login: (token) => { },
     logout: () => { },
@@ -21,6 +22,7 @@ const calculateRemTime = (expirationTime) => {
 const getStoredToken = () => {
     const storedToken = localStorage.getItem('token')
     const storedExpTime = localStorage.getItem('expTime')
+    const storedIsAdmin = localStorage.getItem('isAdmin')
 
     const remTime = calculateRemTime(storedExpTime)
 
@@ -30,37 +32,41 @@ const getStoredToken = () => {
     }
     return {
         token: storedToken,
+        isAdmin: storedIsAdmin === 'true',
         remTime: remTime
     };
 }
 
 export const AuthContextProvider = (props) => {
     const tokenData = getStoredToken();
-
     let initialToken
+    let initIsAdmin
 
     if (tokenData) {
         initialToken = tokenData.token
+        initIsAdmin = tokenData.isAdmin
     }
 
     const [token, setToken] = useState(initialToken)
+    const [isAdmin, setIsAdmin] = useState(initIsAdmin)
 
     const userIsLogged = !!token
 
-
     const logoutHandler = useCallback(() => {
         setToken(null)
+        setIsAdmin(null)
         localStorage.clear()
-
         if (logoutTimer) {
             clearTimeout(logoutTimer)
         }
     }, [])
 
-    const loginHandler = (token, expirationTime) => {
+    const loginHandler = (token, isAdmin, expirationTime) => {
         setToken(token)
+        setIsAdmin(isAdmin)
         localStorage.setItem('token', token)
         localStorage.setItem('expTime', expirationTime)
+        localStorage.setItem('isAdmin', isAdmin)
 
         // * Automatically log out the user after token expiration.
         const remTime = calculateRemTime(expirationTime)
@@ -76,6 +82,7 @@ export const AuthContextProvider = (props) => {
 
 
     const contextValue = {
+        isAdmin: isAdmin,
         token: token,
         isLoggedIn: userIsLogged,
         login: loginHandler,

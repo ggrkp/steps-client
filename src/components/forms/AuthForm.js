@@ -50,7 +50,7 @@ const AuthForm = () => {
 
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 const apiUrl = isLogin ? '/auth/login' : '/auth/signup'
-
+                console.log(values)
                 fetch(apiUrl, {
                     method: 'POST',
                     body: JSON.stringify(values),
@@ -81,7 +81,7 @@ const AuthForm = () => {
                     .then(data => {
                         if (isLogin) {
                             const expirationTime = new Date(new Date().getTime() + 3600000)
-                            authCtx.login(data.token, expirationTime.toISOString());
+                            authCtx.login(data.token, data.isAdmin, expirationTime.toISOString());
                             navigate('/profile')
                         }
                     })
