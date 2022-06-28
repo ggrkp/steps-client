@@ -6,7 +6,6 @@ const ProfilePage = (props) => {
     const authCtx = useContext(AuthContext)
     const [showSnackbar, setShowSnackbar] = useState(false)
 
-
     const addActHandler = () => {
         const values = {
             type: 'RUNNING',
