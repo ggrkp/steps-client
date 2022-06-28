@@ -80,8 +80,8 @@ const AuthForm = () => {
                     })
                     .then(data => {
                         if (isLogin) {
-                            console.log(data);
-                            authCtx.login(data.token);
+                            const expirationTime = new Date(new Date().getTime() + 3600000)
+                            authCtx.login(data.token, expirationTime.toISOString());
                             navigate('/profile')
                         }
                     })

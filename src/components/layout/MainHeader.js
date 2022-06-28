@@ -1,13 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './MainHeader.module.css'
 import { useContext } from 'react'
 import AuthContext from '../../store/auth-context'
 // ! based on user / admin / unauthorized: different links show up.
 const MainHeader = (props) => {
-
+    const navigate = useNavigate()
     const authCtx = useContext(AuthContext)
     const isLoggedIn = authCtx.isLoggedIn
     const logoutHandler = () => {
+        navigate('/auth')
         authCtx.logout()
     }
     return (
