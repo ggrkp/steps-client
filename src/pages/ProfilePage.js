@@ -23,13 +23,13 @@ const ProfilePage = (props) => {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
-            if (res.status !== 200) {
+            if (!res.ok) {
                 throw new Error('Failed to add activity.');
             }
             return res;
         }).then(data => {
             console.log('Added activity.')
-        }).catch(err => console.error(err))
+        }).catch(err => console.log(err.message))
     }
 
     
@@ -52,7 +52,7 @@ const ProfilePage = (props) => {
                 setTimeout(() => setShowSnackbar(false), 3000)
                 console.log(data.message)
             })
-            .catch(err => console.error(err))
+            .catch(err => console.log(err.message))
     }
 
 

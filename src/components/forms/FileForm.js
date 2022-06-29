@@ -3,37 +3,45 @@ import Card from '../layout/Card'
 import AuthContext from '../../store/auth-context'
 import { useState, useContext } from 'react'
 import Snackbar from '../layout/Snackbar';
+import Loader from '../layout/Loader';
+
 const FileForm = () => {
     const authCtx = useContext(AuthContext)
 
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false)
+    const [uploadingData, setUploadingData] = useState(false)
 
 
     const submitHandler = (e) => {
         e.preventDefault();
-
+        setUploadingData(true)
         const formData = new FormData()
         formData.append('file', selectedFile)
 
-        fetch('/api/file', {
+
+        fetch('/api/add-activities', {
             method: 'POST',
             body: formData,
             headers: {
                 Authorization: 'Bearer ' + authCtx.token,
             }
-        }).then(response => {
-            if (response.statusCode !== 200) {
-                throw new Error(response.statusCode)
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('There was an error uploading your data. Please try again.')
             }
-            return response
-        }).catch(error => console.log(error))
+            setShowSnackbar(true)
+            setTimeout(() => setShowSnackbar(false), 3000)
+            setUploadingData(false)
+            return res
+        }).catch(err => {
 
+            // todo: set error state to show to browser 
+            console.log(err.message)
+        }
+        )
 
-        setShowSnackbar(true)
-        setTimeout(() => setShowSnackbar(false), 3000)
-        console.log(selectedFile)
     }
 
     return (
@@ -55,16 +63,21 @@ const FileForm = () => {
                         name="file" />
                     Browse files
                 </label>
-
-                {selectedFile &&
+                {selectedFile ?
                     <>
 
                         <span>File: {selectedFile.name}</span> <br />
                         <span>Size: {(selectedFile.size / 1024).toFixed(2) + " KB"}</span>
                     </>
+                    : <span>No file selected.</span>
                 }
-                <button disabled={!selectedFile} className="btn btn-secondary">Upload file</button>
+                {
+                    uploadingData
+                        ? <Loader size={48} />
+                        : <button disabled={!selectedFile} className="btn btn-secondary">Upload file</button>
+                }
             </form>
+
         </Card >
     )
 }
