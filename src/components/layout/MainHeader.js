@@ -38,9 +38,6 @@ const MainHeader = (props) => {
                             <li><NavLink to="#">Stats</NavLink></li>
                             <li><NavLink to="/upload">Upload</NavLink></li>
                         </>}
-
-
-
                     </ul>
                     {/* <span className="error-msg">{props.role}</span> */}
                 </nav>

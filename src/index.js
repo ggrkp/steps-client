@@ -10,10 +10,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthContextProvider>
 
-
     <BrowserRouter>
       <App />
-    </BrowserRouter>,
+    </BrowserRouter>
 
   </AuthContextProvider>
 );

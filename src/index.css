@@ -159,7 +159,9 @@ svg {
   text-align: center;
   padding: 0 16px;
 }
-
+.chart{
+  margin: 15px;
+}
 
 @media only screen and (max-width: 800px) {
 
