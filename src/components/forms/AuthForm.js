@@ -8,13 +8,21 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Snackbar from '../layout/Snackbar';
 
 const AuthForm = () => {
+
     const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLogin, setIsLogin] = useState(true)
     const [showSnackbar, setShowSnackbar] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const toggleHandler = () => {
         setIsLogin(!isLogin)
+    }
+
+
+    const togglePwHandler = (e) => {
+        e.preventDefault()
+        setShowPassword(!showPassword)
     }
 
     const buttonText = isLogin ? 'Log In' : 'Sign Up'
@@ -37,6 +45,9 @@ const AuthForm = () => {
             // todo: validate swsta me useState ktl.
 
             validate={values => {
+                // const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                const usernameRegex = /^[a-zA-Z0-9]+$/;
                 const errors = {};
                 if (!values.email) {
                     errors.email = 'Email is required';
@@ -45,6 +56,28 @@ const AuthForm = () => {
                 ) {
                     errors.email = 'Invalid email address';
                 }
+
+                if (!values.password) {
+                    errors.password = 'Password is required';
+                }
+                if (!isLogin) {
+
+                    if (!values.name) {
+                        errors.name = 'Username is required.'
+                    }
+                    else if( !usernameRegex.test(values.name) ) {
+                        errors.name = 'Username should contain only letters and numbers.'
+                    }
+
+                    if (values.password.length < 6) {
+                        errors.password = 'Password must be at least 6 characters long';
+                    }
+                    else if (
+                        !strongRegex.test(values.password)) {
+                        errors.password = 'Password should contain at least 1 lowercase, 1 uppercase letter, 1 number and 1 special character.';
+                    }
+                }
+
                 return errors;
             }}
 
@@ -104,8 +137,16 @@ const AuthForm = () => {
                         <Field className={styles.field} type="text" name="email" />
                         <ErrorMessage className='error-msg' name="email" component="div" />
 
-                        <span className={styles['form-span']}>Password</span>
-                        <Field className={styles.field} type="password" name="password" />
+                        <span className={styles['form-span']}>Password
+                            {showPassword
+                                ? <i onClick={togglePwHandler} className="fas fa-eye-slash icon-btn"></i>
+                                : <i onClick={togglePwHandler} className="fas fa-eye icon-btn" id="togglePassword"></i>
+
+                            }
+
+
+                        </span>
+                        <Field className={styles.field} type={showPassword ? "text" : "password"} name="password" />
                         <ErrorMessage className='error-msg' name="password" component="div" />
 
                         <button className="btn btn-primary" type="submit" disabled={isSubmitting}>

@@ -4,6 +4,7 @@ import AuthContext from '../../store/auth-context'
 import { useState, useContext } from 'react'
 import Snackbar from '../layout/Snackbar';
 import Loader from '../layout/Loader';
+import axios from 'axios';
 
 const FileForm = () => {
     const authCtx = useContext(AuthContext)
@@ -12,7 +13,10 @@ const FileForm = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false)
     const [uploadingData, setUploadingData] = useState(false)
-
+    const [hasError, setHasError] = useState({
+        msg: '',
+        error: false
+    })
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -21,14 +25,13 @@ const FileForm = () => {
         formData.append('file', selectedFile)
 
 
-        fetch('/api/add-activities', {
-            method: 'POST',
-            body: formData,
+        axios.post('/api/add-activities', formData, {
             headers: {
+                'Content-Type': 'multipart/form-data',
                 Authorization: 'Bearer ' + authCtx.token,
             }
         }).then(res => {
-            if (!res.ok) {
+            if (!res.statusText === 'OK') {
                 throw new Error('There was an error uploading your data. Please try again.')
             }
             setShowSnackbar(true)
@@ -36,17 +39,39 @@ const FileForm = () => {
             setUploadingData(false)
             return res
         }).catch(err => {
-
             // todo: set error state to show to browser 
-            console.log(err.message)
+            console.log(err.response.data)
+            setHasError({ msg: err.response.data, error: true })
+            setUploadingData(false)
         }
         )
+
+        // fetch('/api/add-activities', {
+        //     method: 'POST',
+        //     body: formData,
+        //     headers: {
+        //         Authorization: 'Bearer ' + authCtx.token,
+        //     }
+        // }).then(res => {
+        //     if (!res.ok) {
+        //         throw new Error('There was an error uploading your data. Please try again.')
+        //     }
+        //     setShowSnackbar(true)
+        //     setTimeout(() => setShowSnackbar(false), 3000)
+        //     setUploadingData(false)
+        //     return res
+        // }).catch(err => {
+
+        //     // todo: set error state to show to browser 
+        //     console.log(err.message)
+        // }
+        // )
 
     }
 
     return (
         <Card Card className={styles['center-card']} >
-            <Snackbar showBar={showSnackbar} snackText="File uploaded!" />
+            <Snackbar showBar={showSnackbar} snackText="File uploaded successfully!" />
             <div className={styles["card-img"]}>
                 <h1 className={styles['form-title']}>Upload File</h1>
                 <h4 className={styles['form-title']}>Pick a json file and upload it.</h4>
@@ -57,7 +82,10 @@ const FileForm = () => {
 
                 <label className="btn-primary    btn">
                     <input
-                        onChange={(e) => setSelectedFile(e.target.files[0])}
+                        onChange={(e) => {
+                            setSelectedFile(e.target.files[0])
+                            setHasError({ msg: '', error: false })
+                        }}
                         type="file"
                         id="file"
                         name="file" />
@@ -76,6 +104,7 @@ const FileForm = () => {
                         ? <Loader size={48} />
                         : <button disabled={!selectedFile} className="btn btn-secondary">Upload file</button>
                 }
+                {hasError.error && <span className="error-msg">{hasError.msg}</span>}
             </form>
 
         </Card >

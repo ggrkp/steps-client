@@ -81,6 +81,12 @@ svg {
   border-radius: 6px;
 }
 
+.icon-btn{
+  color: var(--dark-100);
+  margin: 0 15px;
+  cursor: pointer;
+}
+
 .btn:hover:enabled {
   animation: bounce .2s ease-in;
 }
@@ -150,6 +156,8 @@ svg {
 
 .error-msg {
   color: var(--critical-100);
+  text-align: center;
+  padding: 0 16px;
 }
 
 
