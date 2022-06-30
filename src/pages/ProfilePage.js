@@ -1,4 +1,5 @@
 import ChartCard from '../components/layout/ChartCard';
+import ProfileCard from '../components/layout/ProfileCard';
 import Chart from 'chart.js/auto';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,19 +12,20 @@ import axios from 'axios'
 
 const ProfilePage = (props) => {
     const authCtx = useContext(AuthContext)
-    const [phPercent, setPhPercent] = useState('')
+    const [totalScore, setTotalScore] = useState('')
+    const [monthlyScores, setMonthlyScores] = useState('')
     const [dateRange, setDateRange] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:3000/activities/physical-percentage', {
+        axios.get('http://localhost:3000/activities/get-total-score', {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: 'Bearer ' + authCtx.token,
             }
         }).then(response => {
             // set state and cast string to number.
-            setPhPercent(+response.data.phPercent)
-            console.log(response.data.phPercent)
+            setTotalScore(+response.data.totalScore)
+            console.log(response.data.totalScore)
         })
 
         axios.get('http://localhost:3000/activities/records-range', {
@@ -35,6 +37,17 @@ const ProfilePage = (props) => {
             setDateRange({ ...response.data })
             console.log(response.data)
         })
+
+        axios.get('http://localhost:3000/activities/get-monthly-score', {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: 'Bearer ' + authCtx.token,
+            }
+        }).then(response => {
+            console.log(response.data)
+            setMonthlyScores(response.data)
+        })
+
     }, [authCtx.token])
 
     const latestDate = new Date(dateRange.latestDate);
@@ -47,21 +60,39 @@ const ProfilePage = (props) => {
     const oldestMonth = oldestDate.getMonth() + 1;
     const oldestDt = oldestDate.getDate();
 
-    const formattedRange = `${oldestDt}.${oldestMonth}.${oldestYear} - ${latestDt}.${latestMonth}.${latestYear}`
+    const formattedOldestDate = `${oldestDt}.${oldestMonth}.${oldestYear} `
+    const formattedLatestDate = `${latestDt}.${latestMonth}.${latestYear}`
 
     return (
         <>
             <Container>
                 <Row>
-                    <Col className="no-padding"  md={12} lg={4}>
-                        <ChartCard>
+                    {/* <Col className="no-padding" md={6} lg={4}>
+                        <ProfileCard >
+                            <h4>
+                                Welcome back, Giorgos!
+                            </h4>
+                        </ProfileCard>
+                    </Col> */}
+                    <Col className="no-padding" md={6} lg={4}>
+
+                        <ProfileCard title={'Records Range'}>
+                            <h6>Oldest Record: {formattedOldestDate}</h6>
+                            <h6>Newest Record: {formattedLatestDate}</h6>
+                        </ProfileCard>
+                        <ProfileCard title={'Your Place'}>
+                            <h1> #1</h1>
+
+                        </ProfileCard>
+                    </Col>
+                    <Col className="no-padding" md={6} lg={4}>
+                        <ProfileCard title={'Your Score!'}>
                             <div className="canvas square-chart">
                                 <Doughnut data={
                                     {
                                         labels: ['Physical Activities %', 'Other Activities %'],
                                         datasets: [
                                             {
-                                                label: 'Physical activities Percentage',
                                                 backgroundColor: [
                                                     'rgba(75, 192, 192, 0.2)',
                                                     'rgba(54, 162, 235, 0.2)'],
@@ -69,7 +100,7 @@ const ProfilePage = (props) => {
                                                     'rgba(75, 192, 192, 1)',
                                                     'rgba(54, 162, 235, 1)',],
                                                 borderWidth: 0.8,
-                                                data: [phPercent, 100 - phPercent]
+                                                data: [totalScore, 100 - totalScore]
                                             }
                                         ]
                                     }}
@@ -85,68 +116,64 @@ const ProfilePage = (props) => {
                                         }
                                     }} />
                             </div>
-                        </ChartCard>
+                        </ProfileCard>
                     </Col>
-                    <Col className="no-padding" md={12} lg={8}>
-                        <ChartCard>
+                    <Col className="no-padding" md={12} lg={4}>
+                        <ProfileCard title={'Leaderboards'}>
+                            LEADERBOARDS PLACEHOLDER
+                        </ProfileCard>
+                    </Col>
+
+
+
+                </Row>
+                <Row>
+                    <Col className="no-padding" lg={12}     >
+                        <ProfileCard title={'Your scores for the last 12 months'}>
                             <div className="canvas">
                                 <Bar data={{
-
-                                    labels: ['label', 'label', 'label', 'label', 'label', 'label', 'label', 'label', 'label', 'label', 'label', 'label',],
+                                    labels: monthlyScores.months,
                                     datasets: [{
-                                        label: 'My First Dataset',
-                                        data: [65, 59, 80, 81, 56, 55, 40, 60, 90, 99, 12, 59],
+                                        label: 'Monthly Score',
+                                        data: monthlyScores.percentages,
                                         backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)',
-                                            'rgba(255, 205, 86, 0.2)',
-                                            'rgba(255, 99, 132, 0.2)',
                                             'rgba(75, 192, 192, 0.2)',
                                             'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(201, 203, 207, 0.2)',
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(255, 99, 132, 0.2)',
-                                        ],
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)'],
+
+
                                         borderColor: [
+                                            'rgba(75, 192, 192, 1)',
                                             'rgb(255, 99, 132)',
                                             'rgb(255, 159, 64)',
-                                            'rgb(255, 99, 132)',
-                                            'rgb(255, 205, 86)',
-                                            'rgb(255, 99, 132)',
-                                            'rgb(75, 192, 192)',
-                                            'rgb(54, 162, 235)',
-                                            'rgb(255, 99, 132)',
-                                            'rgb(255, 99, 132)',
-                                            'rgb(153, 102, 255)',
-                                            'rgb(255, 99, 132)',
-                                            'rgb(201, 203, 207)'
+                                            'rgba(54, 162, 235, 1)',
                                         ],
                                         borderWidth: 1
                                     }]
 
-                                }} />
+                                }}
+                                    options={{
+                                        scales: {
+                                            y:
+                                            {
+                                                min: 0,
+                                                max: 100,
+                                                stepSize: 5,
+                                            },
+                                            x:
+                                            {
+
+                                            },
+                                        },
+                                    }
+                                    }
+
+                                />
                             </div>
-                        </ChartCard>
+                        </ProfileCard>
                     </Col>
-                    {/* <Col sm>
-                        <ChartCard>
-                            LEADERBOARDS PLACEHOLDER
-                        </ChartCard>
-                    </Col>
-                    <Col sm>
-                        <ChartCard>
-                            Records Range:{formattedRange}
-                        </ChartCard>
 
-
-                    </Col> */}
-                </Row>
-                <Row>
-
-                    {/* <Col sm={4}>sm=4</Col> */}
                 </Row>
             </Container>
 
