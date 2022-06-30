@@ -21,7 +21,7 @@ function App() {
   const [role, setRole] = useState()
 
   useEffect(() => {
-    axios.get('/auth/role', {
+    axios.get('http://localhost:3000/auth/role', {
       headers: {
         Authorization: 'Bearer ' + authCtx.token,
       }

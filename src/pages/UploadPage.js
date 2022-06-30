@@ -7,7 +7,7 @@ import AuthContext from '../store//auth-context'
 const UploadPage = () => {
     const authCtx = useContext(AuthContext)
     useEffect(() => {
-        axios.get('/api/hello', {
+        axios.get('http://localhost:3000/api/hello', {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: 'Bearer ' + authCtx.token,

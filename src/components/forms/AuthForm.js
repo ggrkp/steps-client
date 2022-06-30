@@ -84,7 +84,7 @@ const AuthForm = () => {
 
 
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                const apiUrl = isLogin ? '/auth/login' : '/auth/signup'
+                const apiUrl = isLogin ? 'http://localhost:3000/auth/login' : 'http://localhost:3000/auth/signup'
                 console.log(values)
 
                 axios.post(apiUrl, values)
