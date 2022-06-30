@@ -1,5 +1,5 @@
- import styles from './Card.module.css'
-const Card = (props) => {
+import styles from './ChartCard.module.css'
+const ChartCard = (props) => {
     return (
         <div className={`${styles['card']} ${props.className}`}>
             <div className={styles['container']}>
@@ -9,4 +9,4 @@ const Card = (props) => {
     )
 }
 
-export default Card
+export default ChartCard

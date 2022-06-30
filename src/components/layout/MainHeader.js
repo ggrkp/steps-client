@@ -20,9 +20,9 @@ const MainHeader = (props) => {
         <>
             <header className={styles.mainheader}>
                 <nav className={`${styles.nav} ${styles['nav-small']} `}>
-                    <div className={styles['nav-btn']}>
-                        {/* <button className='btn btn-ghost'>Profile</button> */}
-                        {authCtx.isLoggedIn && <button className='btn btn-ghost' onClick={logoutHandler}>Log Out</button>}
+                    <div className={styles['nav-button']}>
+                        {/* <button className='button button-ghost'>Profile</button> */}
+                        {authCtx.isLoggedIn && <button className='button button-ghost' onClick={logoutHandler}>Log Out</button>}
                     </div>
                     <h1 className={styles.logo}>steps </h1>
                     <ul className={`${styles['nav-ul']} ${styles['nav-small']} `}>

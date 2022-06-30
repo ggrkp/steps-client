@@ -139,8 +139,8 @@ const AuthForm = () => {
 
                         <span className={styles['form-span']}>Password
                             {showPassword
-                                ? <i onClick={togglePwHandler} className="fas fa-eye-slash icon-btn"></i>
-                                : <i onClick={togglePwHandler} className="fas fa-eye icon-btn" id="togglePassword"></i>
+                                ? <i onClick={togglePwHandler} className="fas fa-eye-slash icon-button"></i>
+                                : <i onClick={togglePwHandler} className="fas fa-eye icon-button" id="togglePassword"></i>
 
                             }
 
@@ -149,7 +149,7 @@ const AuthForm = () => {
                         <Field className={styles.field} type={showPassword ? "text" : "password"} name="password" />
                         <ErrorMessage className='error-msg' name="password" component="div" />
 
-                        <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
+                        <button className="button button-prim" type="submit" disabled={isSubmitting}>
                             {buttonText}
                         </button>
                         {/* <br></br> */}
@@ -158,7 +158,7 @@ const AuthForm = () => {
                     <span className="error-msg">{errorMsg}</span>
                     {isLogin && <span> Don't have an account yet?</span >}
                     <div className={styles['center']}>
-                        <button onClick={toggleHandler} className={`btn ${isLogin ? 'btn-secondary' : 'btn-plain'}`} >
+                        <button onClick={toggleHandler} className={`button ${isLogin ? 'button-sec' : 'button-plain'}`} >
                             {!isLogin && <span>Already have an account ?</span >}
                             {toggleBtnText}
                         </button>

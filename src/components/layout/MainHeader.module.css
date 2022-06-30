@@ -40,7 +40,7 @@
     font-size: max(50px, 4vw);
 }
 
-.nav-btn {
+.nav-button {
     min-width: 30%;
 
     order: 1;
@@ -87,7 +87,7 @@
 
     }
 
-    .nav-btn {
+    .nav-button {
         margin-left: auto;
         order: -1;
     }

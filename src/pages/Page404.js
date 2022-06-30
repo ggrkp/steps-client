@@ -10,7 +10,7 @@ const Page404 = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>   Oops! </h1>
             <h2 className={styles.subtitle}>   The page you were looking for does not exist.</h2>
-            <button onClick={clickHandler} className="btn-ghost btn">Home</button>
+            <button onClick={clickHandler} className="button-ghost button">Home</button>
         </div>
     )
 }
