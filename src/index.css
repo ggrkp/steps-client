@@ -57,8 +57,12 @@ code {
     monospace;
 }
 
-svg {
+.svg {
   width: 100%;
+}
+
+.margin-left{
+  margin-left: 5px;
 }
 
 .button {

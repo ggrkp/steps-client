@@ -7,11 +7,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Doughnut, Bar } from 'react-chartjs-2';
 
+import stringifyNumber from '../utils/numToStr'
+
 import { useState, useContext, useEffect } from 'react'
 import AuthContext from '../store/auth-context'
 import axios from 'axios'
 
 const ProfilePage = (props) => {
+    // const stringifyNumber = require('../utils/numToStr.js')
     const authCtx = useContext(AuthContext)
     const [totalScore, setTotalScore] = useState('')
     const [monthlyScores, setMonthlyScores] = useState('')
@@ -96,7 +99,7 @@ const ProfilePage = (props) => {
 
 
 
-                        <ProfileCard title={'Leaderboards'}>
+                        <ProfileCard title={<><i class="fa-solid fa-ranking-star"></i>&nbsp;&nbsp;Leaderboards</>}>
                             <Table firstCol={'User'} secondCol={"Last Month's Score"}>
                                 {
                                     [...leaderScores].map(user => (
@@ -107,13 +110,13 @@ const ProfilePage = (props) => {
 
 
 
-                        <ProfileCard title={'Your Rank'}>
-                            <h1> #{userRank}</h1>
+                        <ProfileCard title={<><i class="fa-solid fa-award"></i>&nbsp;&nbsp;Your Rank</>}>
+                            <h2> You placed {stringifyNumber(userRank)}!</h2>
 
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" md={6} lg={4}>
-                        <ProfileCard title={'Your Score!'}>
+                        <ProfileCard title={<><i class="fa-solid fa-star"></i>&nbsp;&nbsp;Your Score!</>}>
                             <div className="canvas square-chart">
                                 <Doughnut data={
                                     {
@@ -146,7 +149,7 @@ const ProfilePage = (props) => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" md={12} lg={4}>
-                        <ProfileCard title={'Records Range'}>
+                        <ProfileCard title={<><i class="fa-solid fa-database"></i>&nbsp;&nbsp;Records Range</>}>
 
                             <Table firstCol={'Oldest Record'} secondCol={"Latest Record"} >
                                 <TableRow col1={formattedOldestDate} col2={formattedLatestDate} />
@@ -157,7 +160,7 @@ const ProfilePage = (props) => {
                 </Row>
                 <Row>
                     <Col className="no-padding" lg={12}>
-                        <ProfileCard title={'Your scores for the last 12 months'}>
+                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp;Your scores for the last 12 months</>}>
                             <div className="canvas">
                                 <Bar data={{
                                     labels: monthlyScores.months,
