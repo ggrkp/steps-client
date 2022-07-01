@@ -1,4 +1,5 @@
-import ChartCard from '../components/layout/ChartCard';
+import Table from '../components/layout/Table';
+import TableRow from '../components/layout/TableRow';
 import ProfileCard from '../components/layout/ProfileCard';
 import Chart from 'chart.js/auto';
 import Container from 'react-bootstrap/Container';
@@ -14,6 +15,8 @@ const ProfilePage = (props) => {
     const authCtx = useContext(AuthContext)
     const [totalScore, setTotalScore] = useState('')
     const [monthlyScores, setMonthlyScores] = useState('')
+    const [leaderScores, setLeaderScores] = useState('')
+    const [userRank, setUserRank] = useState('')
     const [dateRange, setDateRange] = useState('')
 
     useEffect(() => {
@@ -48,6 +51,28 @@ const ProfilePage = (props) => {
             setMonthlyScores(response.data)
         })
 
+
+        axios.get('http://localhost:3000/activities/get-leaders', {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: 'Bearer ' + authCtx.token,
+            }
+        }).then(response => {
+            // console.log(response.data)
+            const leaders = response.data.result
+            const userId = response.data.userId
+            console.log('userId: ' + userId)
+            setLeaderScores(leaders.length > 3
+                ? leaders.slice(0, 3) // if ranks len > 3,  get 3 first items of the ranks table.
+                : leaders)
+
+            // Find current user in rank tables and get his rank
+            const currUser = leaders.find(x => x.userId === userId)
+            setUserRank(currUser.rank)
+
+        })
+
+
     }, [authCtx.token])
 
     const latestDate = new Date(dateRange.latestDate);
@@ -67,21 +92,23 @@ const ProfilePage = (props) => {
         <>
             <Container>
                 <Row>
-                    {/* <Col className="no-padding" md={6} lg={4}>
-                        <ProfileCard >
-                            <h4>
-                                Welcome back, Giorgos!
-                            </h4>
-                        </ProfileCard>
-                    </Col> */}
                     <Col className="no-padding" md={6} lg={4}>
 
-                        <ProfileCard title={'Records Range'}>
-                            <h6>Oldest Record: {formattedOldestDate}</h6>
-                            <h6>Newest Record: {formattedLatestDate}</h6>
+
+
+                        <ProfileCard title={'Leaderboards'}>
+                            <Table firstCol={'User'} secondCol={"Last Month's Score"}>
+                                {
+                                    [...leaderScores].map(user => (
+                                        <TableRow col1={user.user.name} col2={user.score} />
+                                    ))}
+                            </Table>
                         </ProfileCard>
-                        <ProfileCard title={'Your Place'}>
-                            <h1> #1</h1>
+
+
+
+                        <ProfileCard title={'Your Rank'}>
+                            <h1> #{userRank}</h1>
 
                         </ProfileCard>
                     </Col>
@@ -119,16 +146,17 @@ const ProfilePage = (props) => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" md={12} lg={4}>
-                        <ProfileCard title={'Leaderboards'}>
-                            LEADERBOARDS PLACEHOLDER
+                        <ProfileCard title={'Records Range'}>
+
+                            <Table firstCol={'Oldest Record'} secondCol={"Latest Record"} >
+                                <TableRow col1={formattedOldestDate} col2={formattedLatestDate} />
+                            </Table>
+
                         </ProfileCard>
                     </Col>
-
-
-
                 </Row>
                 <Row>
-                    <Col className="no-padding" lg={12}     >
+                    <Col className="no-padding" lg={12}>
                         <ProfileCard title={'Your scores for the last 12 months'}>
                             <div className="canvas">
                                 <Bar data={{
