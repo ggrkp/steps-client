@@ -1,14 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './MainHeader.module.css'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import AuthContext from '../../store/auth-context'
-import axios from 'axios';
 // ! based on user / admin / unauthorized: different links show up.
 const MainHeader = (props) => {
     const authCtx = useContext(AuthContext)
 
 
-    const isAdmin = props.role === 'Admin'
+    const isAdmin = props.isAdmin
     const navigate = useNavigate()
 
     const logoutHandler = () => {
@@ -25,7 +24,7 @@ const MainHeader = (props) => {
                         {authCtx.isLoggedIn && <button className='button button-ghost nav-btn' onClick={logoutHandler}>Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>}
                         {/* <button className='button button-ghost'>Profile</button> */}
                     </div>
-                    <h1 className={styles.logo}>steps </h1>
+                    <h1 className={styles.logo}><i class="fa-solid fa-leaf"></i>steps </h1>
                     <ul className={`${styles['nav-ul']} ${styles['nav-small']} `}>
 
                         {(authCtx.isLoggedIn && isAdmin) && <>
@@ -40,7 +39,7 @@ const MainHeader = (props) => {
                             <li><NavLink to="/upload"><i class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp;&nbsp;Upload  </NavLink></li>
                         </>}
                     </ul>
-                    {/* <span className="error-msg">{props.role}</span> */}
+
                 </nav>
             </header>
         </>

@@ -1,12 +1,14 @@
 import Table from '../components/layout/Table';
 import TableRow from '../components/layout/TableRow';
 import ProfileCard from '../components/layout/ProfileCard';
+
 import Chart from 'chart.js/auto';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Doughnut, Bar } from 'react-chartjs-2';
 
+import { Doughnut, Bar } from 'react-chartjs-2';
+import ProfileWrapper from '../components/helpers/ProfileWrapper';
 import stringifyNumber from '../utils/numToStr'
 
 import { useState, useContext, useEffect } from 'react'
@@ -22,61 +24,62 @@ const ProfilePage = (props) => {
     const [userRank, setUserRank] = useState('')
     const [dateRange, setDateRange] = useState('')
 
+
     useEffect(() => {
-        axios.get('http://localhost:3000/activities/get-total-score', {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + authCtx.token,
-            }
-        }).then(response => {
-            // set state and cast string to number.
-            setTotalScore(+response.data.totalScore)
-            console.log(response.data.totalScore)
-        })
+        if (!authCtx.isAdmin) {
+            axios.get('http://localhost:3000/activities/get-total-score', {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer ' + authCtx.token,
+                }
+            }).then(response => {
+                // set state and cast string to number.
+                setTotalScore(+response.data.totalScore)
+                console.log(response.data.totalScore)
+            })
 
-        axios.get('http://localhost:3000/activities/records-range', {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + authCtx.token,
-            }
-        }).then(response => {
-            setDateRange({ ...response.data })
-            console.log(response.data)
-        })
+            axios.get('http://localhost:3000/activities/records-range', {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer ' + authCtx.token,
+                }
+            }).then(response => {
+                setDateRange({ ...response.data })
+                console.log(response.data)
+            })
 
-        axios.get('http://localhost:3000/activities/get-monthly-score', {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + authCtx.token,
-            }
-        }).then(response => {
-            console.log(response.data)
-            setMonthlyScores(response.data)
-        })
-
-
-        axios.get('http://localhost:3000/activities/get-leaders', {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + authCtx.token,
-            }
-        }).then(response => {
-            // console.log(response.data)
-            const leaders = response.data.result
-            const userId = response.data.userId
-            console.log('userId: ' + userId)
-            setLeaderScores(leaders.length > 3
-                ? leaders.slice(0, 3) // if ranks len > 3,  get 3 first items of the ranks table.
-                : leaders)
-
-            // Find current user in rank tables and get his rank
-            const currUser = leaders.find(x => x.userId === userId)
-            setUserRank(currUser.rank)
-
-        })
+            axios.get('http://localhost:3000/activities/get-monthly-score', {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer ' + authCtx.token,
+                }
+            }).then(response => {
+                console.log(response.data)
+                setMonthlyScores(response.data)
+            })
 
 
-    }, [authCtx.token])
+            axios.get('http://localhost:3000/activities/get-leaders', {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer ' + authCtx.token,
+                }
+            }).then(response => {
+                // console.log(response.data)
+                const leaders = response.data.result
+                const userId = response.data.userId
+                console.log('userId: ' + userId)
+                setLeaderScores(leaders.length > 3
+                    ? leaders.slice(0, 3) // if ranks len > 3,  get 3 first items of the ranks table.
+                    : leaders)
+
+                // Find current user in rank tables and get his rank
+                const currUser = leaders.find(x => x.userId === userId)
+                setUserRank(currUser.rank)
+            })
+        }
+
+    }, [authCtx.token, authCtx.isAdmin])
 
     const latestDate = new Date(dateRange.latestDate);
     const latestYear = latestDate.getFullYear();
@@ -111,7 +114,7 @@ const ProfilePage = (props) => {
 
 
                         <ProfileCard title={<><i class="fa-solid fa-award"></i>&nbsp;&nbsp;Your Rank</>}>
-                            <h2> You placed {stringifyNumber(userRank)}!</h2>
+                            <h3> You placed {stringifyNumber(userRank)}!</h3>
 
                         </ProfileCard>
                     </Col>

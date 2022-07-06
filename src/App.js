@@ -9,6 +9,7 @@ import AuthPage from './pages/AuthPage'
 import UploadPage from './pages/UploadPage'
 import DashBoardPage from './pages/DashBoardPage'
 import Page404 from './pages/Page404'
+import ProfileWrapper from './components/helpers/ProfileWrapper';
 
 import { useContext, useState, useEffect } from 'react'
 import AuthContext from './store/auth-context';
@@ -18,24 +19,22 @@ import axios from 'axios'
 function App() {
   const authCtx = useContext(AuthContext)
 
-  const [role, setRole] = useState()
+  const [isAdmin, setisAdmin] = useState()
 
   useEffect(() => {
     axios.get('http://localhost:3000/auth/role', {
       headers: {
         Authorization: 'Bearer ' + authCtx.token,
       }
-    }).then(res => { setRole(res.data.role); localStorage.setItem('isAdmin', (res.data.role === 'Admin')) })
+    }).then(res => { setisAdmin(res.data.role === 'Admin'); localStorage.setItem('isAdmin', (res.data.role === 'Admin')) })
   }, [authCtx])
-
-  const isAdmin = role === 'Admin'
 
   return (
     <>
-      <MainHeader role={role} />
+      <MainHeader isAdmin={authCtx.isAdmin} />
       <Layout>
-        <Routes>
 
+        <Routes>
           <Route path='/' element={<Navigate replace to='/profile' />} />
 
           {(authCtx.isLoggedIn && !isAdmin) && <Route path='/upload' element={<UploadPage />} />}
@@ -47,7 +46,7 @@ function App() {
 
           <Route path='/profile'
             element={authCtx.isLoggedIn
-              ? !isAdmin ? < ProfilePage /> : <DashBoardPage />
+              ? <ProfileWrapper />
               : <Navigate replace to='/auth' />} />
 
           <Route path='*' element={<Page404 />} />
