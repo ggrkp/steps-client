@@ -6,6 +6,11 @@ input[type="file"] {
   display: none;
 }
 
+.map-container{
+  height: 600px;
+  width: 80vw;
+}
+
 :root {
   --dark-100: #013237;
   --light-100: aliceblue;
@@ -14,7 +19,6 @@ input[type="file"] {
   --fancy-100: #44d9a5;
   --critical-100: tomato;
 }
-
 
 
 @keyframes bounce {
@@ -61,7 +65,7 @@ code {
   width: 100%;
 }
 
-.margin-left{
+.margin-left {
   margin-left: 5px;
 }
 
@@ -173,14 +177,19 @@ code {
   padding: 0;
 }
 
+@media only screen and (max-width: 1070px) {
+  
+  .sm-hide{
+    display: none;
+  }
+}
 
-@media only screen and (max-width: 800px) {
-
+@media only screen and (max-width: 900px) {
   .button {
     font-size: 16px;
     padding: 12px 24px;
   }
-
+  
   .button-plain {
     padding: 0;
     margin: 8px;

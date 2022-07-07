@@ -47,30 +47,10 @@ const DashBoardPage = () => {
     return (
         <>
             <Container>
-                {/* <Row>
-                    <Col className="no-padding" md={6} lg={4}>
-                        <ProfileCard title={<><i class="fa-solid fa-ranking-star"></i>&nbsp;&nbsp;Leaderboards</>}>
-                            <Table firstCol={'User'} secondCol={"Last Month's Score"}>
-                                {
-                                    [...leaderScores].map(user => (
-                                        <TableRow col1={user.user.name} col2={user.score} />
-                                    ))}
-                            </Table>
-                        </ProfileCard>
-                    </Col>
-                    <Col className="no-padding" md={6} lg={4}>
-                        <ProfileCard title={<><i class="fa-solid fa-star"></i>&nbsp;&nbsp;Your Score!</>}>
-
-                        </ProfileCard>
-                    </Col>
-                    <Col className="no-padding" md={12} lg={4}>
-
-                    </Col>
-                </Row> */}
                 <Row>
                     <Col className="no-padding" lg={4}>
-                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp; User activity count.</>}>
-                            <Table firstCol={'User'} secondCol={"Count per user"}>
+                        <ProfileCard title={<>Total Activities per User</>}>
+                            <Table firstCol={'User'} secondCol={"Activity Count"}>
                                 {
                                     [...perUserData].map(item => (
                                         <TableRow col1={item.userName} col2={item.countPerUser} />
@@ -79,12 +59,12 @@ const DashBoardPage = () => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" lg={8}>
-                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp;Activity count.</>}>
+                        <ProfileCard title={<>Total Activities per Type</>}>
                             <div className="canvas">
                                 <Bar data={{
                                     labels: typePercentage.typeLabels,
                                     datasets: [{
-                                        label: 'Monthly Score',
+                                        label: 'Type Total',
                                         data: typePercentage.typeData,
                                         backgroundColor: [
                                             'rgba(75, 192, 192, 0.2)',
@@ -108,13 +88,13 @@ const DashBoardPage = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className="no-padding" lg={12}>
-                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp;Monthly activity count.</>}>
+                    <Col className="no-padding" lg={12  }>
+                        <ProfileCard title={<>Total Activities per Month</>}>
                             <div className="canvas">
                                 <Bar data={{
                                     labels: [...months],
                                     datasets: [{
-                                        label: 'Monthly Score',
+                                        label: 'Monthly Total',
                                         data: monthlyData,
                                         backgroundColor: [
                                             'rgba(75, 192, 192, 0.2)',
@@ -139,12 +119,12 @@ const DashBoardPage = () => {
                 </Row>
                 <Row>
                     <Col className="no-padding" lg={8}>
-                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp; Daily activity count.</>}>
+                        <ProfileCard title={<>Total Activities per Day</>}>
                             <div className="canvas">
                                 <Bar data={{
                                     labels: [...days],
                                     datasets: [{
-                                        label: 'Monthly Score',
+                                        label: 'Daily Total',
                                         data: dailyData,
                                         backgroundColor: [
                                             'rgba(75, 192, 192, 0.2)',
@@ -167,7 +147,7 @@ const DashBoardPage = () => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" lg={4}>
-                        <ProfileCard title={<><i class="fa-solid fa-chart-column"></i>&nbsp;&nbsp; Yearly activity count.</>}>
+                        <ProfileCard title={<>Total Activities per Year</>}>
                             <Table firstCol={'Year'} secondCol={"Activity Count"}>
                                 {
                                     [...yearlyData].map(year => (
@@ -175,6 +155,7 @@ const DashBoardPage = () => {
                                     ))}
                             </Table>
                         </ProfileCard>
+                        
 
 
                     </Col>

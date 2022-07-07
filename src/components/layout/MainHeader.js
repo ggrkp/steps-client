@@ -28,9 +28,12 @@ const MainHeader = (props) => {
                     <ul className={`${styles['nav-ul']} ${styles['nav-small']} `}>
 
                         {(authCtx.isLoggedIn && isAdmin) && <>
-                            <li><NavLink to="/profile"><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Home</NavLink></li>
-                            <li><NavLink to="#">Heatmap</NavLink></li>
-                            <li><NavLink to="/upload">Actions</NavLink></li>
+                            <li><NavLink to="/profile"><i class="fa-solid fa-house"></i>&nbsp;&nbsp; <span className="sm-hide">Home</span></NavLink></li>
+                            <li><NavLink to="/heatmap"><i class="fa-solid fa-map-location-dot"></i>&nbsp;&nbsp; <span className="sm-hide">Heatmap</span></NavLink></li>
+                            <li > <a href="javascript:void(0)" className={styles.delete}><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;<span className="sm-hide">Delete Data</span> </a>
+
+
+                            </li>
                         </>}
 
                         {(authCtx.isLoggedIn && !isAdmin) && <>

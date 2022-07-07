@@ -4,10 +4,10 @@ import './App.css';
 import MainHeader from './components/layout/MainHeader'
 import Layout from './components/layout/Layout'
 
-import ProfilePage from './pages/ProfilePage'
+// import ProfilePage from './pages/ProfilePage'
 import AuthPage from './pages/AuthPage'
 import UploadPage from './pages/UploadPage'
-import DashBoardPage from './pages/DashBoardPage'
+import AdminHeatmap from './pages/AdminHeatmap'
 import Page404 from './pages/Page404'
 import ProfileWrapper from './components/helpers/ProfileWrapper';
 
@@ -47,6 +47,11 @@ function App() {
           <Route path='/profile'
             element={authCtx.isLoggedIn
               ? <ProfileWrapper />
+              : <Navigate replace to='/auth' />} />
+
+          <Route path='/heatmap'
+            element={authCtx.isLoggedIn
+              ? <AdminHeatmap />
               : <Navigate replace to='/auth' />} />
 
           <Route path='*' element={<Page404 />} />

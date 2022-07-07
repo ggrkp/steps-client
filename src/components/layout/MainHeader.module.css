@@ -45,17 +45,16 @@
     /* margin-left: auto; */
     order: 1;
     align-self: flex-start;
-    display:flex;
-    justify-content: flex-end;  
+    display: flex;
+    justify-content: flex-end;
     /* margin-left: auto; */
 }
 
-.nav-btn{
-   
-}
+.nav-btn {}
 
 
 .nav-ul li a {
+    cursor: pointer;
     border-radius: 5px;
     /* display: block; */
     padding: 6px 16px;
@@ -83,6 +82,13 @@
 .nav-ul li a:hover:after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+.delete{
+    color:tomato!important
+}
+.delete:after{
+    background-color: tomato!important;
 }
 
 
