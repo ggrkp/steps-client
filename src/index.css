@@ -9,6 +9,7 @@ input[type="file"] {
 .map-container{
   height: 600px;
   width: 80vw;
+  max-width:700px;
 }
 
 :root {
@@ -31,11 +32,6 @@ input[type="file"] {
     -webkit-transform: translateY(-1px);
     transform: translateY(-1px);
   }
-
-  /* 80% {
-    -webkit-transform: translateY(-1px);
-    transform: translateY(-1px);
-  } */
 }
 
 
