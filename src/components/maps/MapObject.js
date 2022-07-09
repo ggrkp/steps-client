@@ -19,7 +19,7 @@ const MapObject = () => {
 
                 const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
                 });
 
                 const cfg = {
@@ -34,11 +34,11 @@ const MapObject = () => {
                     //   (there will always be a red spot with useLocalExtremas true)
                     "useLocalExtrema": true,
                     // which field name in your data represents the latitude - default "lat"
-                    latField: 'latitude',
+                    latField: 'lat',
                     // which field name in your data represents the longitude - default "lng"
-                    lngField: 'longtitude',
+                    lngField: 'lon',
                     // which field name in your data represents the data value - default "value"
-                    // valueField: 'count'
+                    valueField: 'value'
                 };
 
 

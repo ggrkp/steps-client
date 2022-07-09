@@ -24,15 +24,30 @@ const MainHeader = (props) => {
                 <nav className={`${styles.nav} ${styles['nav-small']} `}>
                     <div className={styles['nav-button']}>
 
-                        {authCtx.isLoggedIn && <button className='button button-ghost nav-btn' onClick={logoutHandler}>Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>}
+                        {authCtx.isLoggedIn &&
+                            <button
+                                className='button button-ghost nav-btn'
+                                onClick={logoutHandler}>Log Out
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            </button>}
                         {/* <button className='button button-ghost'>Profile</button> */}
                     </div>
                     <h1 className={styles.logo}><i class="fa-solid fa-leaf"></i>steps </h1>
                     <ul className={`${styles['nav-ul']} ${styles['nav-small']} `}>
 
                         {(authCtx.isLoggedIn && isAdmin) && <>
-                            <li><NavLink to="/profile"><i class="fa-solid fa-house"></i>&nbsp;&nbsp; <span className="sm-hide">Home</span></NavLink></li>
-                            <li><NavLink to="/heatmap"><i class="fa-solid fa-map-location-dot"></i>&nbsp;&nbsp; <span className="sm-hide">Heatmap</span></NavLink></li>
+                            <li><NavLink
+                                to="/profile">
+                                <i class="fa-solid fa-house"></i>&nbsp;&nbsp;
+                                <span className="sm-hide">Home</span>
+                            </NavLink>
+                            </li>
+                            <li><NavLink
+                                to="/heatmap">
+                                <i class="fa-solid fa-map-location-dot"></i>&nbsp;&nbsp;
+                                <span className="sm-hide">Heatmap</span>
+                            </NavLink>
+                            </li>
                             {/* <li > <a href="javascript:void(0)" className={styles.delete}><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;<span className="sm-hide">Delete Data</span> </a>
 
 
@@ -40,9 +55,27 @@ const MainHeader = (props) => {
                         </>}
 
                         {(authCtx.isLoggedIn && !isAdmin) && <>
-                            <li><NavLink to="/profile"><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Home</NavLink></li>
-                            <li><NavLink to="#"> <i class="fa-solid fa-chart-line"></i>&nbsp;&nbsp;Stats</NavLink></li>
-                            <li><NavLink to="/upload"><i class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp;&nbsp;Upload  </NavLink></li>
+                            <li>
+                                <NavLink
+                                    to="/profile">
+                                    <i class="fa-solid fa-house"></i>
+                                    &nbsp;&nbsp;Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="#">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    &nbsp;&nbsp;Stats
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/upload">
+                                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                                    &nbsp;&nbsp;Upload
+                                </NavLink>
+                            </li>
                         </>}
                     </ul>
 
