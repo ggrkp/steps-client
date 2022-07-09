@@ -1,69 +1,63 @@
-import React, { useEffect, useContext, useState } from 'react'
-// import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import React, { useEffect, useContext, useState, useCallback } from 'react'
 import ProfileCard from '../layout/ProfileCard'
-import HeatmapOverlay from './heatmap-leaflet.js'
+// import HeatmapOverlay from './heatmap-leaflet.js'
 import L from 'leaflet'
+import "leaflet.heat"
 import axios from 'axios'
+import Loader from '../layout/Loader'
 
-const MapObject = () => {
+
+const MapObject = (props) => {
+    const addressPoints = props.data
+    // useEffect(() => {
+    //     axios.get('http://localhost:3000/admin/heatmap')
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             return res.data
+    //         })
+    // }, [])
+
+
+
+    const fetchHeatmap = useCallback(() => {
+        var map = L.map("map").setView([37.9838, 23.7275], 12);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const points = addressPoints
+            ? addressPoints.map((p) => {
+                return [p[0], p[1]];
+            })
+            : [];
+
+        L.heatLayer(points, { radius: 10 }).addTo(map);
+        return (() => {
+            map.remove()
+        })
+    }, [addressPoints])
+
 
     useEffect(() => {
-        axios.get('http://localhost:3000/admin/heatmap')
-            .then((res) => {
-                return res.data
-            }).then((data) => {
-                // const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                //     maxZoom: 19,
-                //     attribution: '© OpenStreetMap'
-                // })
+        if (addressPoints) {
 
-                const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
-                });
-
-                const cfg = {
-                    // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-                    // if scaleRadius is false it will be the constant radius used in pixels
-                    "radius": 0.001,
-                    "maxOpacity": .8,
-                    // scales the radius based on map zoom
-                    "scaleRadius": true,
-                    // if set to false the heatmap uses the global maximum for colorization
-                    // if activated: uses the data maximum within the current map boundaries
-                    //   (there will always be a red spot with useLocalExtremas true)
-                    "useLocalExtrema": true,
-                    // which field name in your data represents the latitude - default "lat"
-                    latField: 'lat',
-                    // which field name in your data represents the longitude - default "lng"
-                    lngField: 'lon',
-                    // which field name in your data represents the data value - default "value"
-                    valueField: 'value'
-                };
-
-
-                const heatmapLayer = new HeatmapOverlay(cfg);
-
-                const map = new L.Map('map', {
-                    center: new L.LatLng(38.2304, 21.7531),
-                    zoom: 7,
-                    layers: [baseLayer, heatmapLayer]
-                });
-
-                heatmapLayer.setData({ data });
-            })
-
-    }, [])
-
+            fetchHeatmap()
+        }
+    }, [fetchHeatmap,addressPoints]);
 
     return (
         <ProfileCard ProfileCard title="Heatmap" >
-            <div className="map-container" id="map"></div>
+            {addressPoints
+                ? <div className="map-container" id="map"></div>
+                : <div className="map-loader">
+                    <div>Please wait until the map is ready...</div>
+                    <Loader size={72} />
+                </div>
+            }
         </ProfileCard >
 
     )
 }
 
-
 export default MapObject
-

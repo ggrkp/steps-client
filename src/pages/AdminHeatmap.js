@@ -1,20 +1,15 @@
 import MapObject from '../components/maps/MapObject'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-
+import AdminContext from '../store/admin-context'
 const AdminHeatmap = () => {
-    const [data, setData] = useState(null)
-    // useEffect(() => {
 
-    //     axios.get('http://localhost:3000/admin/heatmap')
-    //         .then((res) => {
-    //             setData(res.data)
-    //             return res.data
-    //         })
-    // }, [])
+    const adminCtx = useContext(AdminContext)
+    const data = adminCtx.mapData
+
 
     return (
-        <MapObject />
+        <MapObject data={data} />
     )
 }
 

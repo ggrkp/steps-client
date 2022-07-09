@@ -1,5 +1,5 @@
 import DashBoard from '../components/admin/DashBoard'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Loader from '../components/layout/Loader'
 import AdminContext from '../store/admin-context'
 
@@ -13,14 +13,17 @@ const DashBoardPage = () => {
     const dailyData = adminCtx.dailyData
     const yearlyData = adminCtx.yearlyData
     const typePercentage = adminCtx.typePercentage
-
+    
     const refreshHandler = () => {
+       
         adminCtx.fetchDashData()
+        adminCtx.fetchMapData()
+        
     }
 
 
     return (<>
-        {monthlyData ?
+        {!adminCtx.fetching ?
             <DashBoard
                 refreshData={refreshHandler}
                 monthlyData={monthlyData}

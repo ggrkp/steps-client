@@ -16,6 +16,7 @@ const MainHeader = (props) => {
         navigate('/auth')
         authCtx.logout()
         adminCtx.clearDashData()
+        adminCtx.clearMapData()
     }
 
     return (

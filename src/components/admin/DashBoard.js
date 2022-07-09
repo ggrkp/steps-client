@@ -1,4 +1,3 @@
-// import styles from './DashBoardPage.module.css'
 import Table from '../layout/Table';
 import TableRow from '../layout/TableRow';
 import ProfileCard from '../layout/ProfileCard';
@@ -11,11 +10,15 @@ import Col from 'react-bootstrap/Col';
 
 import { Bar } from 'react-chartjs-2';
 
+import { useState } from 'react'
 
 const DashBoard = memo((props) => {
+   
 
     const refreshHandler = () => {
+        
         props.refreshData()
+        
     }
 
     const monthlyData = props.monthlyData
@@ -31,7 +34,10 @@ const DashBoard = memo((props) => {
             <Container>
                 <Row>
                     <Col className="no-padding" lg={4}>
-                        <button className="button button-prim" onClick={refreshHandler}>Refresh Data</button>
+                        <button className="button button-prim" onClick={refreshHandler}>
+                           Fetch Data
+                        </button>
+
                         <button className="button button-critical">Delete Data</button>
                         <ProfileCard title={<>Total Activities per User</>}>
                             <Table firstCol={'User'} secondCol={"Activity Count"}>
