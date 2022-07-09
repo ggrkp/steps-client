@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import AuthContext from '../../store/auth-context'
 import AdminContext from '../../store/admin-context'
+import UserContext from '../../store/user-context'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Snackbar from '../layout/Snackbar';
 
@@ -12,6 +13,7 @@ const AuthForm = () => {
 
     const authCtx = useContext(AuthContext)
     const adminCtx = useContext(AdminContext)
+    const userCtx = useContext(UserContext)
     const navigate = useNavigate()
 
     const [isLogin, setIsLogin] = useState(true)
@@ -101,15 +103,16 @@ const AuthForm = () => {
                             const expirationTime = new Date(new Date().getTime() + 3600000)
 
                             authCtx.login(res.data.token, res.data.isAdmin, expirationTime.toISOString());
-
-                            navigate('/profile')
-
-                            if (res.data.isAdmin) {
-                                //fetch admin data if the user is admin!
-                                // todo: loader for fetching data
-                                adminCtx.fetchDashData()
-                                adminCtx.fetchMapData()
+                            if (isLogin) {
+                                if (res.data.isAdmin) {
+                                    adminCtx.fetchDashData(res.data.token)
+                                    adminCtx.fetchMapData(res.data.token)
+                                }
+                                else if (!res.data.isAdmin) {
+                                    userCtx.fetchUserData(res.data.token)
+                                }
                             }
+                            navigate('/profile')
                         }
                         else {
                             setShowSnackbar(true)
@@ -119,12 +122,14 @@ const AuthForm = () => {
                             resetForm()
                         }
 
-                    }).catch(err => {
+                    })
+                    .catch(err => {
                         setSubmitting(false)
                         setErrorMsg(err.response.data)
                         setTimeout(() => { setErrorMsg(null) }, 7000)
-                        // resetForm()
+                       
                     })
+                    
             }}
         >
             {({ isSubmitting }) => (
@@ -164,8 +169,6 @@ const AuthForm = () => {
                         <button className="button button-prim" type="submit" disabled={isSubmitting}>
                             {buttonText}
                         </button>
-
-                        {/* <br></br> */}
 
                     </Form>
                     <span className="error-msg">{errorMsg}</span>

@@ -3,9 +3,11 @@ import styles from './MainHeader.module.css'
 import { useContext } from 'react'
 import AuthContext from '../../store/auth-context'
 import AdminContext from '../../store/admin-context'
+import UserContext from '../../store/user-context'
 // ! based on user / admin / unauthorized: different links show up.
 const MainHeader = (props) => {
     const authCtx = useContext(AuthContext)
+    const userCtx = useContext(UserContext)
     const adminCtx = useContext(AdminContext)
 
 
@@ -17,6 +19,7 @@ const MainHeader = (props) => {
         authCtx.logout()
         adminCtx.clearDashData()
         adminCtx.clearMapData()
+        userCtx.clearUserData()
     }
 
     return (
@@ -28,7 +31,7 @@ const MainHeader = (props) => {
                         {authCtx.isLoggedIn &&
                             <button
                                 className='button button-ghost nav-btn'
-                                onClick={logoutHandler}>Log Out
+                                onClick={logoutHandler}>Log Out&nbsp;&nbsp;
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </button>}
                         {/* <button className='button button-ghost'>Profile</button> */}
@@ -60,21 +63,24 @@ const MainHeader = (props) => {
                                 <NavLink
                                     to="/profile">
                                     <i class="fa-solid fa-house"></i>
-                                    &nbsp;&nbsp;Home
+                                    &nbsp;&nbsp;
+                                    <span className="sm-hide">Home</span>
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
                                     to="#">
                                     <i class="fa-solid fa-chart-line"></i>
-                                    &nbsp;&nbsp;Stats
+                                    &nbsp;&nbsp;
+                                    <span className="sm-hide">Stats</span>
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
                                     to="/upload">
                                     <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                                    &nbsp;&nbsp;Upload
+                                    &nbsp;&nbsp;
+                                    <span className="sm-hide">Upload</span>
                                 </NavLink>
                             </li>
                         </>}

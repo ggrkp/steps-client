@@ -2,11 +2,13 @@ import DashBoard from '../components/admin/DashBoard'
 import { useContext, useState } from 'react'
 import Loader from '../components/layout/Loader'
 import AdminContext from '../store/admin-context'
+import AuthContext from '../store/auth-context'
 
 
 const DashBoardPage = () => {
     // Add backend isAdmin verification middleware before requests.
     const adminCtx = useContext(AdminContext)
+    const authCtx = useContext(AuthContext)
 
     const monthlyData = adminCtx.monthlyData
     const perUserData = adminCtx.perUserData
@@ -16,8 +18,8 @@ const DashBoardPage = () => {
     
     const refreshHandler = () => {
        
-        adminCtx.fetchDashData()
-        adminCtx.fetchMapData()
+        adminCtx.fetchDashData(authCtx.token)
+        adminCtx.fetchMapData(authCtx.token)
         
     }
 

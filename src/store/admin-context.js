@@ -18,30 +18,29 @@ const AdminContext = React.createContext({
 })
 
 export const AdminContextProvider = (props) => {
-    const authCtx = useContext(AuthContext)
     const [monthlyData, setMonthlyData] = useState([])
     const [perUserData, setPerUserData] = useState([])
     const [dailyData, setDailyData] = useState([])
     const [yearlyData, setYearlyData] = useState([])
     const [typePercentage, setTypePercentage] = useState({})
-
     const [mapData, setMapData] = useState([])
-
     const [fetching, setFetching] = useState(false)
 
     const clearDashDataHandler = () => {
-        setMonthlyData(null)
-        setPerUserData(null)
-        setDailyData(null)
-        setYearlyData(null)
-        setTypePercentage(null)
+        setMonthlyData([])
+        setPerUserData([])
+        setDailyData([])
+        setYearlyData([])
+        setTypePercentage({})
+        setFetching(false)
     }
-    const fetchDashDataHandler = () => {
+    const fetchDashDataHandler = (token) => {
         setFetching(true)
+
         axios.get('http://localhost:3000/admin/dashboard', {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + authCtx.token,
+                Authorization: 'Bearer ' + token,
             }
         }).then(response => {
             const data = response.data
@@ -54,8 +53,13 @@ export const AdminContextProvider = (props) => {
         }).then(console.log('FETCHED'))
 
     }
-    const fetchMapDataHandler = () => {
-        axios.get('http://localhost:3000/admin/heatmap')
+    const fetchMapDataHandler = (token) => {
+        axios.get('http://localhost:3000/admin/heatmap', {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: 'Bearer ' + token,
+            }
+        })
             .then((res) => {
                 setMapData(res.data)
                 return res.data
@@ -63,7 +67,7 @@ export const AdminContextProvider = (props) => {
     }
 
     const clearMapDataHandler = () => {
-       setMapData([])
+        setMapData([])
     }
 
     const contextValue = {

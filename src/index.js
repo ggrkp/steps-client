@@ -5,19 +5,22 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './store/auth-context'
 import { AdminContextProvider } from './store/admin-context'
+import { UserContextProvider } from './store/user-context'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <AdminContextProvider>
-    <AuthContextProvider>
+  <AuthContextProvider>
+    <UserContextProvider>
+      <AdminContextProvider>
 
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
 
-    </AuthContextProvider>
-  </AdminContextProvider >
+      </AdminContextProvider >
+    </UserContextProvider>
+  </AuthContextProvider>
 );
 
 

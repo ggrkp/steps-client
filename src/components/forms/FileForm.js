@@ -1,6 +1,7 @@
 import styles from './Form.module.css'
 import Card from '../layout/Card'
 import AuthContext from '../../store/auth-context'
+import UserContext from '../../store/user-context'
 import { useState, useContext, useEffect, useCallback } from 'react'
 import Snackbar from '../layout/Snackbar';
 import Loader from '../layout/Loader';
@@ -8,12 +9,13 @@ import axios from 'axios';
 
 const FileForm = () => {
     const authCtx = useContext(AuthContext)
+    const userCtx = useContext(UserContext)
 
+    let latestUpload = userCtx.latestUpload
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [showSnackbar, setShowSnackbar] = useState(false)
     const [uploadingData, setUploadingData] = useState(false)
-    const [latestUpload, setLatestUpload] = useState(null)
     const [hasError, setHasError] = useState({
         msg: '',
         error: false
@@ -24,7 +26,6 @@ const FileForm = () => {
         e.preventDefault();
         const formData = new FormData()
         formData.append('file', selectedFile)
-
 
         axios
             .post('http://localhost:3000/api/add-activities', formData, {
@@ -39,14 +40,16 @@ const FileForm = () => {
                 }
                 setShowSnackbar(true)
                 setTimeout(() => setShowSnackbar(false), 3000)
-                // getLatestUploadDate()
                 return res
             })
             .then((res) => {
-                if (res.data === 'gotit!') {
-                    console.log(res.data)
-                    setUploadingData(false)
-                }
+
+                console.log(res.data)
+                userCtx.fetchUserData(authCtx.token)
+                setUploadingData(false)
+                userCtx.updateLatestUpload(authCtx.token)
+                latestUpload = userCtx.latestUpload
+
             })
             .catch(err => {
                 // todo: set error state to show to browser 
