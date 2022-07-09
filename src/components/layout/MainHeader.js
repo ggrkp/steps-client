@@ -2,9 +2,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './MainHeader.module.css'
 import { useContext } from 'react'
 import AuthContext from '../../store/auth-context'
+import AdminContext from '../../store/admin-context'
 // ! based on user / admin / unauthorized: different links show up.
 const MainHeader = (props) => {
     const authCtx = useContext(AuthContext)
+    const adminCtx = useContext(AdminContext)
 
 
     const isAdmin = props.isAdmin
@@ -13,6 +15,7 @@ const MainHeader = (props) => {
     const logoutHandler = () => {
         navigate('/auth')
         authCtx.logout()
+        adminCtx.clearDashData()
     }
 
     return (
@@ -30,10 +33,10 @@ const MainHeader = (props) => {
                         {(authCtx.isLoggedIn && isAdmin) && <>
                             <li><NavLink to="/profile"><i class="fa-solid fa-house"></i>&nbsp;&nbsp; <span className="sm-hide">Home</span></NavLink></li>
                             <li><NavLink to="/heatmap"><i class="fa-solid fa-map-location-dot"></i>&nbsp;&nbsp; <span className="sm-hide">Heatmap</span></NavLink></li>
-                            <li > <a href="javascript:void(0)" className={styles.delete}><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;<span className="sm-hide">Delete Data</span> </a>
+                            {/* <li > <a href="javascript:void(0)" className={styles.delete}><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;<span className="sm-hide">Delete Data</span> </a>
 
 
-                            </li>
+                            </li> */}
                         </>}
 
                         {(authCtx.isLoggedIn && !isAdmin) && <>

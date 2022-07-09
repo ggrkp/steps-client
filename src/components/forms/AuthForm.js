@@ -4,17 +4,21 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import AuthContext from '../../store/auth-context'
+import AdminContext from '../../store/admin-context'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Snackbar from '../layout/Snackbar';
 
 const AuthForm = () => {
 
     const authCtx = useContext(AuthContext)
+    const adminCtx = useContext(AdminContext)
     const navigate = useNavigate()
+
     const [isLogin, setIsLogin] = useState(true)
     const [showSnackbar, setShowSnackbar] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+
     const toggleHandler = () => {
         setIsLogin(!isLogin)
     }
@@ -85,30 +89,38 @@ const AuthForm = () => {
 
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 const apiUrl = isLogin ? 'http://localhost:3000/auth/login' : 'http://localhost:3000/auth/signup'
-                console.log(values)
+
 
                 axios.post(apiUrl, values)
                     .then(res => {
                         if (!res.statusText === 'OK') {
                             throw new Error('Error: ' + res.statusText)
                         }
+                        // * Login handler - Log the user in
                         if (isLogin) {
-                            console.log(res.data)
                             const expirationTime = new Date(new Date().getTime() + 3600000)
+
                             authCtx.login(res.data.token, res.data.isAdmin, expirationTime.toISOString());
+
                             navigate('/profile')
+
+                            if (res.data.isAdmin) {
+                                //fetch admin data if the user is admin!
+                                // todo: loader for fetching data
+                                adminCtx.fetchDashData()
+                                adminCtx.fetchMapData()
+                            }
                         }
                         else {
                             setShowSnackbar(true)
                             setTimeout(() => setShowSnackbar(false), 3000)
-                            console.log('Successfully singed up.')
+                            console.log('Successfully singed up!')
                             setIsLogin(true)
                             resetForm()
                         }
 
                     }).catch(err => {
                         setSubmitting(false)
-                        console.log(err.response.data)
                         setErrorMsg(err.response.data)
                         setTimeout(() => { setErrorMsg(null) }, 7000)
                         // resetForm()

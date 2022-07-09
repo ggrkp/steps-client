@@ -2,6 +2,7 @@ import styles from './Loader.module.css'
 
 const Loader = ({ size }) => {
   return (
+
     <svg
       className={styles.loader}
       xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +17,7 @@ const Loader = ({ size }) => {
     >
       <circle className={styles.circle} cx="12" cy="12" r="10" />
     </svg>
+
   );
 };
 

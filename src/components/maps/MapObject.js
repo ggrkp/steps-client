@@ -1,27 +1,28 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 // import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import ProfileCard from '../layout/ProfileCard'
 import HeatmapOverlay from './heatmap-leaflet.js'
 import L from 'leaflet'
 import axios from 'axios'
 
-const MapObject = (props) => {
-    const [data, setData] = useState([])
-
+const MapObject = () => {
 
     useEffect(() => {
         axios.get('http://localhost:3000/admin/heatmap')
             .then((res) => {
                 return res.data
             }).then((data) => {
-                const baseLayer = L.tileLayer(
-                    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '...',
-                    maxZoom: 18
+                // const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //     maxZoom: 19,
+                //     attribution: '© OpenStreetMap'
+                // })
+
+                const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
 
                 const cfg = {
-
                     // radius should be small ONLY if scaleRadius is true (or small radius is intended)
                     // if scaleRadius is false it will be the constant radius used in pixels
                     "radius": 0.001,
