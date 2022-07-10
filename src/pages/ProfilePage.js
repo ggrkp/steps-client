@@ -10,6 +10,7 @@ const ProfilePage = () => {
     // const stringifyNumber = require('../utils/numToStr.js')
     const userCtx = useContext(UserContext)
     const authCtx = useContext(AuthContext)
+    
     const fetchUserDataHandler = () => {
         userCtx.fetchUserData(authCtx.token) 
     }

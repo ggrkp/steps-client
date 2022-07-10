@@ -1,62 +1,31 @@
 import React, { useEffect, useContext, useState, useCallback } from 'react'
+import HeatMap from './HeatMap'
 import ProfileCard from '../layout/ProfileCard'
-// import HeatmapOverlay from './heatmap-leaflet.js'
-import L from 'leaflet'
-import "leaflet.heat"
-import axios from 'axios'
-import Loader from '../layout/Loader'
+import AdminContext from '../../store/admin-context'
+import {
+    MapContainer, TileLayer
+} from 'react-leaflet'
 
+import "leaflet.heat"
 
 const MapObject = (props) => {
-    const addressPoints = props.data
-    // useEffect(() => {
-    //     axios.get('http://localhost:3000/admin/heatmap')
-    //         .then((res) => {
-    //             console.log(res.data)
-    //             return res.data
-    //         })
-    // }, [])
+    const adminCtx = useContext(AdminContext)
+    const [addressPoints, setAddressPoints] = useState([])
 
-
-
-    const fetchHeatmap = useCallback(() => {
-        var map = L.map("map").setView([37.9838, 23.7275], 12);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        const points = addressPoints
-            ? addressPoints.map((p) => {
-                return [p[0], p[1]];
-            })
-            : [];
-
-        L.heatLayer(points, { radius: 10 }).addTo(map);
-        return (() => {
-            map.remove()
-        })
-    }, [addressPoints])
-
-
-    useEffect(() => {
-        if (addressPoints) {
-
-            fetchHeatmap()
-        }
-    }, [fetchHeatmap,addressPoints]);
-
+    setTimeout(() => {
+        setAddressPoints(adminCtx.mapData)
+    }, 5000)
+    const position = [38.2466, 21.7345]
     return (
         <ProfileCard ProfileCard title="Heatmap" >
-            {addressPoints
-                ? <div className="map-container" id="map"></div>
-                : <div className="map-loader">
-                    <div>Please wait until the map is ready...</div>
-                    <Loader size={72} />
-                </div>
-            }
-        </ProfileCard >
-
+            <MapContainer className="map-container" center={position} zoom={13} scrollWheelZoom={false}>
+                <HeatMap data={addressPoints} />
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </MapContainer>
+        </ProfileCard>
     )
 }
 

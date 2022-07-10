@@ -49,7 +49,7 @@ const DashBoard = memo((props) => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" lg={8}>
-                        <ProfileCard title={<>Total Activities per Type</>}>
+                        <ProfileCard title={<>% Activities per Type</>}>
                             <div className="canvas">
                                 <Bar data={{
                                     labels: typePercentage.typeLabels,

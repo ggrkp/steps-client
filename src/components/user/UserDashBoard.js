@@ -12,6 +12,10 @@ import stringifyNumber from '../../utils/numToStr'
 
 const UserDashBoard = memo((props) => {
 
+    const fetchDataHandler = () => {
+        props.fetchUserData()
+    }
+    
     const leaderScores = props.leaderScores
     const userRank = props.userRank
     const totalScore = props.totalScore
@@ -19,9 +23,6 @@ const UserDashBoard = memo((props) => {
     const formattedLatestDate = props.formattedLatestDate
     const monthlyScores = props.monthlyScores
 
-    const fetchDataHandler = () => {
-        props.fetchUserData()
-    }
 
     return (
         <>
@@ -30,7 +31,7 @@ const UserDashBoard = memo((props) => {
                     <Col className="no-padding" md={6} lg={4}>
                         <button className="button button-prim" onClick={fetchDataHandler}> Fetch Data </button>
                         <ProfileCard title={<><i class="fa-solid fa-ranking-star"></i>&nbsp;&nbsp;Leaderboards</>}>
-                            <Table firstCol={'User'} secondCol={"Last Month's Score"}>
+                            <Table firstCol={'User'} secondCol={"Last 30 days score"}>
                                 {
                                     [...leaderScores].map(user => (
                                         <TableRow col1={user.user.name} col2={user.score} />
@@ -42,7 +43,7 @@ const UserDashBoard = memo((props) => {
                         </ProfileCard>
                     </Col>
                     <Col className="no-padding" md={6} lg={4}>
-                        <ProfileCard title={<><i class="fa-solid fa-star"></i>&nbsp;&nbsp;Your Score!</>}>
+                        <ProfileCard title={<><i class="fa-solid fa-star"></i>&nbsp;&nbsp;Your Total Score!</>}>
                             <div className="canvas square-chart">
                                 <Doughnut data={
                                     {

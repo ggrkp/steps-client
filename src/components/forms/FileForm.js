@@ -42,14 +42,11 @@ const FileForm = () => {
                 setTimeout(() => setShowSnackbar(false), 3000)
                 return res
             })
-            .then((res) => {
-
-                console.log(res.data)
-                userCtx.fetchUserData(authCtx.token)
-                setUploadingData(false)
+            .then(() => {
+                // await userCtx.fetchUserData(authCtx.token).then(async () => {
                 userCtx.updateLatestUpload(authCtx.token)
-                latestUpload = userCtx.latestUpload
-
+                setUploadingData(false)
+                // })
             })
             .catch(err => {
                 // todo: set error state to show to browser 
@@ -107,9 +104,9 @@ const FileForm = () => {
                     : <span>No file selected.</span>
                 }
                 {
-                    uploadingData
-                        ? <Loader size={48} />
-                        : <button disabled={!selectedFile} className="button button-sec">Upload file</button>
+                    !uploadingData
+                        ? <button disabled={!selectedFile} className="button button-sec">Upload file</button>
+                        : <Loader size={48} />
                 }
                 {hasError.error && <span className="error-msg">{hasError.msg}</span>}
             </form>
