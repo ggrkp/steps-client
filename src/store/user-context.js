@@ -15,6 +15,7 @@ const UserContext = React.createContext({
     fetchUserData: () => { },
     clearUserData: () => { },
     updateLatestUpload: () => { },
+   
 })
 
 export const UserContextProvider = (props) => {
@@ -106,6 +107,8 @@ export const UserContextProvider = (props) => {
         setUserFetching(false)
     }
 
+   
+
     const latestDate = new Date(dateRange.latestDate);
     const latestYear = latestDate.getFullYear();
     const latestMonth = latestDate.getMonth() + 1;
@@ -131,7 +134,8 @@ export const UserContextProvider = (props) => {
         formattedLatestDate: formattedLatestDate,
         fetchUserData: fetchUserDataHandler,
         clearUserData: clearUserDataHandler,
-        updateLatestUpload: updateLatestUploadHandler
+        updateLatestUpload: updateLatestUploadHandler,
+        
     }
 
 

@@ -14,6 +14,7 @@ const AdminContext = React.createContext({
     clearDashData: () => { },
     fetchMapData: () => { },
     clearMapData: () => { },
+    getMapData: () => { },
 
 })
 
@@ -53,6 +54,7 @@ export const AdminContextProvider = (props) => {
         }).then(console.log('FETCHED'))
 
     }
+
     const fetchMapDataHandler = (token) => {
         axios.get('http://localhost:3000/admin/heatmap', {
             headers: {
@@ -69,7 +71,9 @@ export const AdminContextProvider = (props) => {
     const clearMapDataHandler = () => {
         setMapData([])
     }
-
+    const getMapDataHandler = (data) => {
+        setMapData(data)
+    }
     const contextValue = {
         monthlyData: monthlyData,
         perUserData: perUserData,
@@ -81,7 +85,8 @@ export const AdminContextProvider = (props) => {
         fetchDashData: fetchDashDataHandler,
         clearDashData: clearDashDataHandler,
         fetchMapData: fetchMapDataHandler,
-        clearMapData: clearMapDataHandler
+        clearMapData: clearMapDataHandler,
+        getMapData: getMapDataHandler
     }
 
 
