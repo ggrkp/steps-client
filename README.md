@@ -28,6 +28,8 @@ For the maps I used leaflet and leaflet heatmap.js plugin.
 
 For the icons I used font-awesome icons.
 
+
+The application is also fully responsive for all devices.
 ### Back End
 For the Back Eend I developed a REST API to handle my requests to the server using mainly NodeJS and Express. 
 
