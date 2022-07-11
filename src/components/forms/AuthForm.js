@@ -36,7 +36,7 @@ const AuthForm = () => {
 
     const formTitles = isLogin
         ? { title: 'Login', subtitle: 'Enter your credentials.' }
-        : { title: 'Signup', subtitle: 'Create a new account and join us.' }
+        : { title: 'Signup', subtitle: 'Create a new account.' }
 
 
     const initValues = isLogin ? { email: '', password: '' } : { name: '', email: '', password: '', is_admin: false }

@@ -29,7 +29,6 @@ const UserDashBoard = memo((props) => {
             <Container>
                 <Row>
                     <Col className="no-padding" md={6} lg={4}>
-                        <button className="button button-prim" onClick={fetchDataHandler}> Fetch Data </button>
                         <ProfileCard title={<><i class="fa-solid fa-ranking-star"></i>&nbsp;&nbsp;Leaderboards</>}>
                             <Table firstCol={'User'} secondCol={"Last 30 days score"}>
                                 {
@@ -83,6 +82,7 @@ const UserDashBoard = memo((props) => {
                             </Table>
 
                         </ProfileCard>
+                        <button className="button button-prim" onClick={fetchDataHandler}> Refresh </button>
                     </Col>
                 </Row>
                 <Row>

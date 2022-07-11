@@ -87,7 +87,7 @@ const MapObject = (props) => {
                             />
                         </MapContainer>
                         <div>
-                            <button disabled={adminCtx.mapFetching} className="button button-prim" onClick={fetchAllHandler}>Show Everything&nbsp;&nbsp;<i class="fa-solid fa-filter-circle-xmark"></i></button>
+                            <button disabled={adminCtx.mapFetching} className="button button-prim" onClick={fetchAllHandler}>Show All Activity&nbsp;&nbsp;<i class="fa-solid fa-filter-circle-xmark"></i></button>
                             <button disabled={adminCtx.mapFetching} className="button button-critical" onClick={clearHandler}>Clear Map&nbsp;&nbsp;<i class="fa-solid fa-trash-can"></i></button>
                             {adminCtx.mapFetching && <Loader size={32} />}
                         </div>

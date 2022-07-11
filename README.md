@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# WELCOME TO THE STEPS PROJECT
+  Auto_Machine_Learning_Tool.pdf file is the complete thesis article, containing my complete research as well as the bibliography. 
+## ABOUT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The aim of this project is the development of a complete, full-stack SPA web application for collection, management and
+analysis of crowdsourced information, concerning spatiotemporal human activity data. Such data is provided by google via the location history JSON file. Users can download their location data from google in the following url: https://takeout.google.com . 
 
-## Available Scripts
+The goal was successfully implemented, nevertheless the application is still expandable with new features.
 
-In the project directory, you can run:
+<hr>
 
-### `npm start`
+## TOOLS
+Full Dev Stack: 
+- MySQL 
+- Express 
+- NodeJS 
+- ReactJS
+### Front End
+For the Front End I used ReactJS. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+For the dashboad layout I used some react-bootstrap.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For the forms I used formik in some cases.
 
-### `npm test`
+For the charts I used react-chartjs-2.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For the maps I used leaflet and leaflet heatmap.js plugin.
 
-### `npm run build`
+For the icons I used font-awesome icons.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Back End
+For the Back Eend I developed a REST API to handle my requests to the server using mainly NodeJS and Express. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Users are secured via JWT Token authentication.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Take a look at the API implementation in this repo: https://github.com/ggrkp/api-project
 
-### `npm run eject`
+### Database
+For the Database I used MySQL and sequelize. Also for my convenience in handling the db I used DBeaver. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+|ER Diagram          
+| :--------------------------
+| ![](./img/er.png) 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## SUPPORTED FEATURES
+  The system supports the creation of both simple users and administrators. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  **Administrator**
+  - Has access to an admin dashboard populated with useful information about the users' activity, shown through charts and tables.
+  - Has access to a map with a configurable heatmap layer showing user activity.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  
+  **Users**
+  - Are able to create an account for the application and sign in with their credentials securely.
+  - Are able to upload a Location History JSON file of their activity. The app is tested even for 3 million insertions.
+  - Have access to a user dashboard where useful information about their activity is shown through charts and tables.
+  - Have personal eco scores (physical activities / total activities). 
+  - Have access to a leaderboard depending on their eco score. Their rank is displayed as well as the users with the top 3 highest scores.
+ 
+## PROJECT PREVIEW
 
-## Learn More
+|Log In            |                 Sign Up                  |
+| :--------------------------: | :--------------------------------------: |
+| ![](./img/login.png) | ![](./img/signup.png) |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  |     User DashBoard     |  Administrator DashBoard   |
+  | :--------------------: | :------------------------: |
+  | ![](./img/user-dash.png) | ![](./img/admin-dash.png) |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+|       User Upload Form       |      Administrator Heatmap Feature       |
+| :--------------------------: | :--------------------------------------: |
+| ![](./img/upload.png) | ![](./img/heatmap.png) |
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<hr>

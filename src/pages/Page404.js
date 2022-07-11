@@ -8,9 +8,9 @@ const Page404 = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>   Oops! </h1>
+            <h1 className={styles.title}> <i class="fa-solid fa-triangle-exclamation"></i>  </h1>
             <h2 className={styles.subtitle}>   The page you were looking for does not exist.</h2>
-            <button onClick={clickHandler} className="button-ghost button">Home</button>
+            <button onClick={clickHandler} className="button-ghost button">Back to Home</button>
         </div>
     )
 }

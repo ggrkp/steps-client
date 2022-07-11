@@ -189,6 +189,7 @@ code {
 }
 
 .no-padding {
+  text-align: center;
   padding: 0;
 }
 

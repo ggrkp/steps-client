@@ -67,14 +67,14 @@ const MainHeader = (props) => {
                                     <span className="sm-hide">Home</span>
                                 </NavLink>
                             </li>
-                            <li>
+                            {/* <li>
                                 <NavLink
                                     to="#">
                                     <i class="fa-solid fa-chart-line"></i>
                                     &nbsp;&nbsp;
                                     <span className="sm-hide">Stats</span>
                                 </NavLink>
-                            </li>
+                            </li> */}
                             <li>
                                 <NavLink
                                     to="/upload">
@@ -84,6 +84,15 @@ const MainHeader = (props) => {
                                 </NavLink>
                             </li>
                         </>}
+                        <li>
+                            <a
+                                href="https://github.com/ggrkp/steps-client">
+                                <i class="fa-brands fa-github"></i>
+                                &nbsp;&nbsp;
+                                <span className="sm-hide">About</span>
+
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
