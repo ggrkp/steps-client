@@ -14,9 +14,12 @@
         require('heatmap.js'),
         require('leaflet')
       );
-    } else if (typeof define === "function" && define.amd) {
-      define(['heatmap.js', 'leaflet'], factory);
-    } else {
+    }
+    // ! not sure if this has to be commented out....
+    //  else if (typeof define === "function" && define.amd) {
+    //   define(['heatmap.js', 'leaflet'], factory);
+    // } 
+    else {
       // browser globals
       if (typeof window.h337 === 'undefined') {
         throw new Error('heatmap.js must be loaded before the leaflet heatmap plugin');
