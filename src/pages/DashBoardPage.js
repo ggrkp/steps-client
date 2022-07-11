@@ -19,7 +19,7 @@ const DashBoardPage = () => {
     const refreshHandler = () => {
        
         adminCtx.fetchDashData(authCtx.token)
-        adminCtx.fetchMapData(authCtx.token)
+        // adminCtx.fetchMapData(authCtx.token)
         
     }
 

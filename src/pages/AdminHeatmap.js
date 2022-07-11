@@ -6,7 +6,6 @@ import AdminContext from '../store/admin-context'
 
 const AdminHeatmap = () => {
 
-
     return (<>
         <MapObject />
     </>

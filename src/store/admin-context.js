@@ -10,6 +10,7 @@ const AdminContext = React.createContext({
     yearlyData: null,
     typePercentage: null,
     fetching: false,
+    mapFetching: false,
     fetchDashData: () => { },
     clearDashData: () => { },
     fetchMapData: () => { },
@@ -26,6 +27,7 @@ export const AdminContextProvider = (props) => {
     const [typePercentage, setTypePercentage] = useState({})
     const [mapData, setMapData] = useState([])
     const [fetching, setFetching] = useState(false)
+    const [mapFetching, setMapFetching] = useState(false)
 
     const clearDashDataHandler = () => {
         setMonthlyData([])
@@ -51,11 +53,13 @@ export const AdminContextProvider = (props) => {
             setYearlyData(data.yearlyData)
             setTypePercentage(data.typePercentage)
             setFetching(false)
-        }).then(console.log('FETCHED'))
+        })
 
     }
 
     const fetchMapDataHandler = (token) => {
+        setMapFetching(true)
+
         axios.get('http://localhost:3000/admin/heatmap', {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -64,6 +68,7 @@ export const AdminContextProvider = (props) => {
         })
             .then((res) => {
                 setMapData(res.data)
+                setMapFetching(false)
                 return res.data
             })
     }
@@ -82,6 +87,7 @@ export const AdminContextProvider = (props) => {
         typePercentage: typePercentage,
         mapData: mapData,
         fetching: fetching,
+        mapFetching: mapFetching,
         fetchDashData: fetchDashDataHandler,
         clearDashData: clearDashDataHandler,
         fetchMapData: fetchMapDataHandler,

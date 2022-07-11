@@ -20,6 +20,7 @@ const HeatMap = (props) => {
         const cfg = {
             // radius should be small ONLY if scaleRadius is true (or small radius is intended)
             // if scaleRadius is false it will be the constant radius used in pixels
+            
             "radius": 0.005,
             "maxOpacity": .8,
             // scales the radius based on map zoom
@@ -37,8 +38,10 @@ const HeatMap = (props) => {
         };
 
 
-        const  heatmapLayer = new HeatmapOverlay(cfg);
+        const heatmapLayer = new HeatmapOverlay(cfg);
 
+        heatmapLayer.name = "heatmap"
+        
         heatmapLayer.setData(testData);
 
         heatmapLayer.addTo(map)

@@ -84,7 +84,7 @@ const FileForm = () => {
 
             <form onSubmit={submitHandler} className={styles.form} encType="multipart/form-data">
 
-                <label className="button-prim    button">
+                <label className="button-prim button">
                     <input
                         onChange={(e) => {
                             setSelectedFile(e.target.files[0])

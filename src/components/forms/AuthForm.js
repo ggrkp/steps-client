@@ -106,7 +106,7 @@ const AuthForm = () => {
                             if (isLogin) {
                                 if (res.data.isAdmin) {
                                     adminCtx.fetchDashData(res.data.token)
-                                    adminCtx.fetchMapData(res.data.token)
+                                    // adminCtx.fetchMapData(res.data.token)
                                 }
                                 else if (!res.data.isAdmin) {
                                     userCtx.fetchUserData(res.data.token)
@@ -127,9 +127,9 @@ const AuthForm = () => {
                         setSubmitting(false)
                         setErrorMsg(err.response.data)
                         setTimeout(() => { setErrorMsg(null) }, 7000)
-                       
+
                     })
-                    
+
             }}
         >
             {({ isSubmitting }) => (
@@ -154,12 +154,10 @@ const AuthForm = () => {
                         <Field className={styles.field} type="text" name="email" />
                         <ErrorMessage className='error-msg' name="email" component="div" />
 
-                        <span className={styles['form-span']}>Password
-                            {showPassword
-                                ? <i onClick={togglePwHandler} className="fas fa-eye-slash icon-button"></i>
-                                : <i onClick={togglePwHandler} className="fas fa-eye icon-button" id="togglePassword"></i>
-
-                            }
+                        <span className={styles['form-span']}>Password{showPassword
+                            ? <button className="btn-icon" key="hide" onClick={togglePwHandler} ><i className="fas fa-eye-slash icon-button"></i></button>
+                            : <button className="btn-icon" key="show" onClick={togglePwHandler} ><i className="fas fa-eye icon-button"></i></button>
+                        }
 
 
                         </span>
