@@ -11,6 +11,38 @@ The goal was successfully implemented, nevertheless the application is still exp
 
 <hr>
 
+
+## SUPPORTED FEATURES
+  The system supports the creation of both simple users and administrators. 
+
+  **Administrator**
+  - Has access to an admin dashboard populated with useful information about the users' activity, shown through charts and tables.
+  - Has access to a map with a configurable heatmap layer showing user activity.
+
+  
+  **Users**
+  - Are able to create an account for the application and sign in with their credentials securely.
+  - Are able to upload a Location History JSON file of their activity. The app is tested even for 3 million insertions.
+  - Have access to a user dashboard where useful information about their activity is shown through charts and tables.
+  - Have personal eco scores (physical activities / total activities). 
+  - Have access to a leaderboard depending on their eco score. Their rank is displayed as well as the users with the top 3 highest scores.
+ 
+## PROJECT PREVIEW
+
+|Log In            |                 Sign Up                  |
+| :--------------------------: | :--------------------------------------: |
+| ![](./img/login.png) | ![](./img/signup.png) |
+
+  |     User DashBoard     |  Administrator DashBoard   |
+  | :--------------------: | :------------------------: |
+  | ![](./img/user-dash.png) | ![](./img/admin-dash.png) |
+
+|       User Upload Form       |      Administrator Heatmap Feature       |
+| :--------------------------: | :--------------------------------------: |
+| ![](./img/upload.png) | ![](./img/heatmap.png) |
+
+<hr>
+
 ## TOOLS
 Full Dev Stack: 
 - MySQL 
@@ -45,34 +77,5 @@ For the Database I used MySQL and sequelize. Also for my convenience in handling
 |ER Diagram          
 | :--------------------------
 | ![](./img/er.png) 
-
-## SUPPORTED FEATURES
-  The system supports the creation of both simple users and administrators. 
-
-  **Administrator**
-  - Has access to an admin dashboard populated with useful information about the users' activity, shown through charts and tables.
-  - Has access to a map with a configurable heatmap layer showing user activity.
-
-  
-  **Users**
-  - Are able to create an account for the application and sign in with their credentials securely.
-  - Are able to upload a Location History JSON file of their activity. The app is tested even for 3 million insertions.
-  - Have access to a user dashboard where useful information about their activity is shown through charts and tables.
-  - Have personal eco scores (physical activities / total activities). 
-  - Have access to a leaderboard depending on their eco score. Their rank is displayed as well as the users with the top 3 highest scores.
- 
-## PROJECT PREVIEW
-
-|Log In            |                 Sign Up                  |
-| :--------------------------: | :--------------------------------------: |
-| ![](./img/login.png) | ![](./img/signup.png) |
-
-  |     User DashBoard     |  Administrator DashBoard   |
-  | :--------------------: | :------------------------: |
-  | ![](./img/user-dash.png) | ![](./img/admin-dash.png) |
-
-|       User Upload Form       |      Administrator Heatmap Feature       |
-| :--------------------------: | :--------------------------------------: |
-| ![](./img/upload.png) | ![](./img/heatmap.png) |
 
 <hr>
