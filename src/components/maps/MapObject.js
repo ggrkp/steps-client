@@ -64,6 +64,7 @@ const MapObject = (props) => {
         const toMonth = toMoRef.current.value
         adminCtx.fetchDateRangeMap(authCtx.token, fromYear, toYear, fromMonth, toMonth)
     }
+
     const position = [38.2466, 21.7345]
 
     return (
@@ -77,7 +78,7 @@ const MapObject = (props) => {
                             className="map-container"
                             center={position}
                             zoom={10}
-                            scrollWheelZoom={true}>
+                            scrollWheelZoom={false}>
                             <ClearHeatmap />
                             <HeatMap data={addressPoints} />
                             <TileLayer
@@ -145,6 +146,7 @@ const MapObject = (props) => {
                                             return <option name={`${year.year}`} value={`${year.year}`}> {year.year}</option>
                                         })}
                                     </select>
+                                    {adminCtx.mapData.length === 0 && <span className="error-msg">No data. Filter again.</span>}
                                     <button disabled={adminCtx.mapFetching} className="button button-prim" onClick={filterHandler}>Filter&nbsp;&nbsp;<i class="fa-solid fa-filter"></i></button>
                                 </form>
                             </div>
