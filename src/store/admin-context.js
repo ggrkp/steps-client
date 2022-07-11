@@ -76,8 +76,26 @@ export const AdminContextProvider = (props) => {
     const clearMapDataHandler = () => {
         setMapData([])
     }
-    const getMapDataHandler = (data) => {
-        setMapData(data)
+    const fetchDaterangeMapHandler = (token, fromYear, toYear, fromMonth, toMonth) => {
+        setMapFetching(true)
+
+        axios.post('http://localhost:3000/admin/map-daterange',
+            {
+                fromYear: fromYear,
+                toYear: toYear,
+                fromMonth: fromMonth,
+                toMonth: toMonth
+            }, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: 'Bearer ' + token,
+            },
+        })
+            .then((res) => {
+                setMapData(res.data)
+                setMapFetching(false)
+                return res.data
+            })
     }
     const contextValue = {
         monthlyData: monthlyData,
@@ -92,7 +110,7 @@ export const AdminContextProvider = (props) => {
         clearDashData: clearDashDataHandler,
         fetchMapData: fetchMapDataHandler,
         clearMapData: clearMapDataHandler,
-        getMapData: getMapDataHandler
+        fetchDateRangeMap: fetchDaterangeMapHandler
     }
 
 

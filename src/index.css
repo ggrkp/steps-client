@@ -9,10 +9,11 @@ input[type="file"] {
 .map-container, #map{
   border: 1px solid rgb(124, 124, 124);
   border-radius:5px;
-  margin: 0 10px 0 10px;
+  /* margin: 0 10px 0 10px; */
   height: 600px;
-  width: 80vw;
-  max-width:600px;
+  /* min-width: 500px */
+  width: 95%;
+  /* max-width:; */
 }
 .map-loader{
   display:flex;
