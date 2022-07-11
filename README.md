@@ -1,5 +1,5 @@
 # WELCOME TO THE STEPS PROJECT
-  Auto_Machine_Learning_Tool.pdf file is the complete thesis article, containing my complete research as well as the bibliography. 
+
 ## ABOUT
 
 The aim of this project is the development of a complete, full-stack SPA web application for collection, management and
