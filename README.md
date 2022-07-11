@@ -1,6 +1,8 @@
 # WELCOME TO THE STEPS PROJECT
 
 ## ABOUT
+**STEPS:	uSer acTivity ExPloitation System**
+
 
 The aim of this project is the development of a complete, full-stack SPA web application for collection, management and
 analysis of crowdsourced information, concerning spatiotemporal human activity data. Such data is provided by google via the location history JSON file. Users can download their location data from google in the following url: https://takeout.google.com . 
